@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>טופס פתיחת מיניסייט ומוצרים | הילה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>:root{--primary:#004994;--primary-light:#006cdb;--primary-dark:#002347;--green:#3f7621;--green-light:#7cce50;--green-dark:#33601b;
+--bg:#f2f5f9;--card:#fff;--ink:#14233a;--mute:#5d6b7e;--line:#dbe3ee;--soft:#eaf1fa;--err:#c0262d;--errbg:#fdecec;--warn:#9a6700;--warnbg:#fff4d6;--ok:#2d7a1f;--okbg:#e6f4e1;--r:14px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Assistant,Arial,sans-serif;font-size:16px;line-height:1.5;direction:rtl}
+button,input,select,textarea{font:inherit;color:inherit}
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.top .in{max-width:1240px;margin:auto;padding:10px 20px;display:flex;align-items:center;gap:16px}
+.top img{height:30px;display:block}
+.top .sep{width:1px;height:26px;background:var(--line)}
+.top .ttl{font-weight:800;color:var(--primary);font-size:18px}
+.top .sp{flex:1}
+.saved{font-size:13px;color:var(--mute);display:flex;align-items:center;gap:6px}
+.saved i{width:8px;height:8px;border-radius:50%;background:var(--green-light);display:inline-block}
+.stripe{background:var(--primary);color:#fff;text-align:center;padding:7px 16px;font-size:14px}
+.wrap{max-width:1240px;margin:22px auto 80px;padding:0 20px;display:grid;grid-template-columns:250px minmax(0,1fr) 330px;gap:22px;align-items:start}
+@media(max-width:1100px){.wrap{grid-template-columns:230px minmax(0,1fr)}.aside{display:none}}
+@media(max-width:760px){.wrap{grid-template-columns:1fr;margin-top:12px}.nav{position:static!important}}
+.nav{position:sticky;top:76px;background:var(--card);border-radius:var(--r);padding:14px;border:1px solid var(--line)}
+.nav h4{margin:2px 6px 10px;font-size:13px;color:var(--mute);font-weight:700;letter-spacing:.3px}
+.nav button{width:100%;display:flex;align-items:center;gap:10px;text-align:right;background:none;border:0;padding:10px 8px;border-radius:10px;cursor:pointer;font-weight:600;color:var(--ink)}
+.nav button:hover{background:var(--soft)}
+.nav button.on{background:var(--soft);color:var(--primary)}
+.nav .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:800;background:#e5ebf3;color:var(--mute);flex:none}
+.nav .on .n{background:var(--primary);color:#fff}
+.nav .done .n{background:var(--green);color:#fff}
+.nav .bad .n{background:var(--err);color:#fff}
+.nav .meter{margin:12px 6px 4px;font-size:13px;color:var(--mute)}
+.bar{height:8px;background:#e5ebf3;border-radius:6px;overflow:hidden;margin-top:6px}
+.bar b{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green-light));width:0;transition:width .3s}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 28px;margin-bottom:18px}
+.card h2{margin:0 0 4px;font-size:24px;color:var(--primary-dark)}
+.card h3{margin:26px 0 10px;font-size:18px;color:var(--primary);padding-top:18px;border-top:1px dashed var(--line)}
+.card h3:first-of-type{border-top:0;padding-top:0;margin-top:18px}
+.lead{color:var(--mute);margin:0 0 6px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px}
+.grid.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid .full{grid-column:1/-1}
+@media(max-width:640px){.grid,.grid.g3{grid-template-columns:1fr}}
+.f label.l{display:block;font-weight:700;margin-bottom:5px}
+.f label.l .rq{color:var(--err);margin-inline-start:3px}
+.f .hint{font-size:13px;color:var(--mute);margin-top:4px}
+.f input[type=text],.f input[type=email],.f input[type=tel],.f input[type=number],.f input[type=date],.f select,.f textarea{width:100%;padding:11px 12px;border:1.5px solid #c5d1e0;border-radius:10px;background:#fff;transition:border .15s,box-shadow .15s}
+.f textarea{min-height:92px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{outline:0;border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(0,108,219,.15)}
+.f.invalid input,.f.invalid select,.f.invalid textarea,.f.invalid .opts{border-color:var(--err);background:#fffafa}
+.f .err{display:none;color:var(--err);font-size:13px;margin-top:4px;font-weight:600}
+.f.invalid .err{display:block}
+.ltr{direction:ltr;text-align:left}
+.suffix{position:relative}
+.suffix input{padding-inline-end:46px!important}
+.suffix span{position:absolute;inset-inline-end:12px;top:50%;transform:translateY(-50%);color:var(--mute);font-size:14px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.opt span{display:block;padding:9px 14px;border:1.5px solid #c5d1e0;border-radius:999px;background:#fff;cursor:pointer;font-weight:600;transition:all .12s}
+.opt input:checked+span{background:var(--primary);border-color:var(--primary);color:#fff}
+.opt input:focus-visible+span{box-shadow:0 0 0 3px rgba(0,108,219,.3)}
+.opts.stack{flex-direction:column;gap:8px}
+.opts.stack .opt span{border-radius:12px;padding:11px 14px}
+.opt small{display:block;font-weight:400;opacity:.85}
+.chk{display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:10px 12px;border:1.5px solid #c5d1e0;border-radius:12px;background:#fff}
+.chk input{margin-top:4px;accent-color:var(--primary);width:18px;height:18px;flex:none}
+.chk b{display:block}
+.chk small{color:var(--mute)}
+.f.invalid .chk{border-color:var(--err)}
+.note{border-radius:12px;padding:12px 14px;margin:12px 0;font-size:14.5px;background:var(--soft);color:var(--primary-dark);border:1px solid #cfe0f5}
+.note.warn{background:var(--warnbg);border-color:#f0dc9a;color:#5d4200}
+.note.ok{background:var(--okbg);border-color:#bfe0b6;color:#1d5412}
+.note.bad{background:var(--errbg);border-color:#f2b9bb;color:#7d1319}
+.btn{border:0;border-radius:12px;padding:12px 22px;font-weight:800;cursor:pointer;font-size:16px}
+.btn.pri{background:var(--green);color:#fff}
+.btn.pri:hover{background:var(--green-dark)}
+.btn.sec{background:#fff;border:1.5px solid var(--primary);color:var(--primary)}
+.btn.sec:hover{background:var(--soft)}
+.btn.ghost{background:none;color:var(--primary);padding:8px 10px}
+.btn.sm{padding:7px 12px;font-size:14px;border-radius:9px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.actions{display:flex;justify-content:space-between;gap:12px;margin-top:6px;flex-wrap:wrap}
+.ptabs{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.ptab{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 14px;cursor:pointer;font-weight:700;display:flex;gap:8px;align-items:center}
+.ptab.on{border-color:var(--primary);background:var(--soft);color:var(--primary)}
+.ptab i{width:9px;height:9px;border-radius:50%;background:#c5d1e0}
+.ptab i.ok{background:var(--green)}
+.ptab i.bad{background:var(--err)}
+table.comps{width:100%;border-collapse:collapse;font-size:15px}
+.comps th{text-align:right;font-size:13px;color:var(--mute);padding:6px 8px;border-bottom:2px solid var(--line)}
+.comps td{padding:7px 8px;border-bottom:1px solid #edf1f6;vertical-align:middle}
+.comps tr.off td{opacity:.55}
+.comps input[type=number]{width:110px;padding:8px 10px;border:1.5px solid #c5d1e0;border-radius:9px}
+.comps .tag{font-size:12px;background:#eef3f9;border-radius:6px;padding:1px 7px;color:var(--mute);white-space:nowrap}
+.comps tr.bad input[type=number]{border-color:var(--err)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.tog{position:relative;width:44px;height:26px;display:inline-block}
+.tog input{opacity:0;position:absolute;inset:0;cursor:pointer;z-index:2}
+.tog i{position:absolute;inset:0;background:#c5d1e0;border-radius:20px;transition:.15s}
+.tog i:after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.15s}
+.tog input:checked+i{background:var(--green)}
+.tog input:checked+i:after{inset-inline-start:21px}
+.rowcard{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fafcff;margin-bottom:10px}
+.drop{display:block;border:2px dashed #aebfd6;border-radius:14px;padding:22px;text-align:center;background:#fafcff;cursor:pointer;transition:.15s}
+.drop:hover,.drop.over{border-color:var(--primary-light);background:var(--soft)}
+.drop b{color:var(--primary)}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
+.th{position:relative;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.th img{width:100%;height:92px;object-fit:cover;display:block}
+.th .m{font-size:12px;padding:5px 7px;color:var(--mute)}
+.th .m b{color:var(--ink)}
+.th.bad{border-color:var(--err)}
+.th .x{position:absolute;top:4px;inset-inline-start:4px;background:rgba(0,0,0,.6);color:#fff;border:0;border-radius:50%;width:24px;height:24px;cursor:pointer}
+.th .badge{position:absolute;top:4px;inset-inline-end:4px;background:var(--primary);color:#fff;font-size:11px;font-weight:800;border-radius:6px;padding:1px 6px}
+.th .e{font-size:12px;color:var(--err);padding:0 7px 6px;font-weight:700}
+.aside{position:sticky;top:76px;display:flex;flex-direction:column;gap:16px}
+.pv{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.pv h5{margin:0;padding:10px 14px;font-size:13px;color:var(--mute);background:#f7f9fc;border-bottom:1px solid var(--line)}
+.pvh{padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);background:#fff;min-height:52px}
+.pvh img{height:22px}
+.pvh .og{height:26px;max-width:90px;object-fit:contain}
+.pvh .ph{width:70px;height:24px;border:1.5px dashed #b8c6d8;border-radius:6px;font-size:10px;color:var(--mute);display:grid;place-items:center}
+.pvb{background:var(--primary);color:#fff;font-size:12px;padding:6px 12px}
+.tile{margin:12px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 4px 14px rgba(0,35,71,.07)}
+.tile .im{height:120px;background:linear-gradient(135deg,#cfe0f5,#eaf1fa);background-size:cover;background-position:center;display:grid;place-items:center;color:var(--mute);font-size:13px}
+.tile .bd{padding:10px 12px;background:var(--primary);color:#fff}
+.tile .bd b{display:block;font-size:16px}
+.tile .bd span{font-size:12.5px;opacity:.9}
+.tile .pr{background:#fff;padding:9px 12px;display:flex;justify-content:space-between;align-items:center;color:var(--ink)}
+.tile .pr strong{color:var(--green);font-size:18px}
+.tile .pr small{color:var(--mute);font-size:12px}
+.sum h4{margin:18px 0 8px;color:var(--primary)}
+.kv{display:grid;grid-template-columns:200px 1fr;gap:6px 14px;font-size:15px}
+.kv dt{color:var(--mute)}
+.kv dd{margin:0;font-weight:600;word-break:break-word}
+@media(max-width:640px){.kv{grid-template-columns:1fr}}
+.issues li{margin:6px 0}
+.issues a{color:var(--primary);cursor:pointer;text-decoration:underline;font-weight:700}
+pre.code{direction:ltr;text-align:left;background:#0e1b2e;color:#d8e6ff;padding:14px;border-radius:12px;overflow:auto;max-height:420px;font-size:12.5px}
+.tabs{display:flex;gap:6px;margin:6px 0 12px;flex-wrap:wrap}
+.tabs button{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:7px 14px;cursor:pointer;font-weight:700}
+.tabs button.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:800}
+.pill.ok{background:var(--okbg);color:var(--ok)}.pill.bad{background:var(--errbg);color:var(--err)}.pill.warn{background:var(--warnbg);color:var(--warn)}
+.toast{position:fixed;bottom:22px;inset-inline:0;margin:auto;width:max-content;max-width:90vw;background:var(--primary-dark);color:#fff;padding:12px 20px;border-radius:12px;z-index:60;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.hide{display:none!important}
+.sticky-actions{position:sticky;bottom:0;background:linear-gradient(transparent,var(--bg) 30%);padding:18px 0 6px}
+@media print{.top,.stripe,.nav,.aside,.actions,.sticky-actions,.tabs,.nodev{display:none!important}.wrap{display:block}.card{border:0;padding:0}}
+@media(max-width:760px){
+.top .in{padding:8px 12px;gap:10px}.top .ttl,.top .sep,.saved{display:none}.top img{height:24px}
+.stripe{font-size:12.5px;padding:6px 12px}
+.wrap{padding:0 12px;gap:12px}
+.nav{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:4px;padding:8px;position:sticky!important;top:46px;z-index:20}
+.nav h4,.nav .meter{display:none}
+.nav button{width:auto;flex:none;padding:6px}
+.nav button span:last-child{display:none}
+.nav button.on span:last-child{display:inline;font-size:14px}
+.nav button.on span:last-child small{display:none}
+.card{padding:18px 14px}
+.card h2{font-size:21px}
+.ptab{padding:7px 10px;font-size:14px}
+.sticky-actions .btn{padding:11px 16px}
+}
+@media(max-width:760px){.comps th:nth-child(4),.comps td:nth-child(4){display:none}.comps td:nth-child(2){min-width:150px}.comps input[type=number]{width:90px}}
+</style></head><body>
+<header class="top"><div class="in"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE0AAAAaCAYAAADygtH/AAAACXBIWXMAAAsSAAALEgHS3X78AAADAElEQVRYhe2YMU/bQBTHf40ydGrDBzgp/QR1JYYqS5zpxsLULqjp2imRMkOzR6Ld2GJGptLRE/GSFX8EV/4CGUEI0cE2cey7+GIci6j8JBR49+7u8c+9d88GE4RsGfn9J7xaOxqJdQW0gR6h69cQ07NHL9pSMCu2LHgRDtCJlhcsoV7hhLQBO2XpAj6hO6xlfw3NnEUvGEA0JmRdwtnASQ37bMSqaGrBFsAMOIj/ToQbErrO2tWFPEUtfhof+As4hO7CIGYLIa8KfM4JXUfjl5zSU4O9PKKTfZk2LkUT0gKmZAT78v3u1373/u3o82sH6Mf2FjBFSAqEs1hNLxXJ+ClCjgndHwX+LYM1vcza2fm6sSyRj5A+8C3JrkbK4TcZwY6Gd85+9/4EGEwubgCczKJThGwbbG7KSXw6n0rVpcMiyi4LVkVrp34PjoZ3zvuP94OUra8Rrk21DOIL4CnMKogjS4s4pdOiJfXEPz67nWUES+hPLm6sN3sPDhDEc0zq0KZ8fcLcS8PaWAYbIa1lTQvdPYDJvDtlWbtUWMdntwAfRh1vfXCh2ysMQ8gB+aJsx58O+lPTIiopWf4U7hm6M4ob+zb5kgVgr0w0ECyND/QKhTNByOtccKFb9E/1iS6uLHuPJ03IB8V4LxbNJC4LuM5Yx4/puaFgEBfHybxbxXNp8enI80lh8ytNTU0v2oRSgiUkwqlPXNQn2SnLzChlzbAVtvOCOQGhO4svmmwPZ9LuANCYzLsDygmWkPR39SHkAct+K82lwpbgA4dVbN/UbF7EIjPvQOe4JXSpGaxYiupiSRoK2zeDeT2202qYovqSytTFUjSIrvRx/HM46nhO0aRRx/OBd0TPcWMiEeshutE2Tc1KaY463owSHXRc+H9WHZABqsY3qPM9nyo9nzuq1KztlMGuiRalZlsxUls9A9VLyGoZslp/dJeHg1mJCFDVT9MOf4mvWCfQ+Ob8lFfyZN5VPX48Mup4W7nKd4XdSs9nwotoJdCJtq5xDbYQx07xD7/B6e1jqd8NAAAAAElFTkSuQmCC" alt="הילה"><img src="data:image/png;base64,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" alt="ההסתדרות הלאומית"><span class="sep"></span><span class="ttl">בקשה לפתיחת מיניסייט ומוצרים</span><span class="sp"></span><span class="saved"><i></i><span id="savedAt">טיוטה נשמרת אוטומטית</span></span></div></header>
+<div class="stripe">ממלאים הכל פעם אחת, והצוות מקבל בקשה מלאה: מחירים, תאריכים, טקסטים ותמונות.</div>
+<div class="wrap"><nav class="nav" id="nav"></nav><main id="main"></main><div><div class="aside" id="aside"></div></div></div>
+<script>/* טופס בקשה לפתיחת מיניסייט ומוצרים: הילה, ההסתדרות הלאומית. ללא שרת: הכל בדפדפן. */
+'use strict';
+const STORE_KEY = 'hila-intake-v1';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* ---------- קטלוגים (מקורם ב-rulebook ובנתוני Staging החיים) ---------- */
+const BOARD = [['ALL_INCLUSIVE', 'הכל כלול'], ['FULL_BOARD', 'פנסיון מלא'], ['HALF_BOARD', 'חצי פנסיון'], ['HALF_BOARD_S_L', 'חצי פנסיון + צהריים בשבת'], ['BED_AND_BREAKFAST', 'לינה וארוחת בוקר'], ['BREAKFAST_AND_LUNCH_INCLUDED', 'בוקר + צהריים'], ['BREAKFAST_AND_DINNER_INCLUDED', 'בוקר + ערב'], ['KITCHEN_FACILITIES', 'מתקני מטבח (צימר/דירה)']];
+const REGION = [['Eilat', 'אילת'], ['The_Dead_Sea', 'ים המלח'], ['Jerusalem', 'ירושלים'], ['Tel_Aviv', 'תל אביב'], ['The_Sharon', 'השרון'], ['North', 'צפון'], ['Haifa', 'חיפה'], ['South', 'דרום'], ['All_Israel', 'כל הארץ'], ['Abroad', 'חו"ל']];
+const SEGMENT = [['s0010', 'הילה רגיל: כל הוועדים (ברירת מחדל, רוב הארגונים)'], ['s0020', 'גננות / ארגונים מיוחדים (Partani)'], ['s0030', 'מכבי'], ['s0040', 'עצמאים'], ['s0050', 'מגזר ציבורי']];
+const FACILITY = [['SPA', 'ספא'], ['SWIMMING_POOL_JACUZZI', 'בריכה / ג׳קוזי'], ['POOLSIDE_BAR', 'בר בריכה'], ['CAR_PARKING', 'חניה'], ['DISABLE_ROOMS_AND_INTERCONNECTING_ROOMS', 'חדרי נכים וחדרים מחוברים'], ['24_HOUR_SECURITY', 'אבטחה 24 שעות'], ['PUBLIC_COMPUTER', 'עמדת מחשב'], ['BABYSITTING_ON_REQUEST', 'בייביסיטר לפי בקשה'], ['24_HOUR_DOCTOR_ON_CALL', 'רופא כונן 24 שעות'], ['AIRPORT_TRANSFERS', 'הסעות משדה התעופה']];
+const ADDON = [['kosher_meal', 'ארוחה כשרה למהדרין'], ['kosher', 'כשרות מהדרין'], ['bus', 'הסעה'], ['cruise', 'שייט'], ['flight_insurance', 'ביטוח טיסה']];
+const INSTITUTION = [['Atid_College', 'מכללת עתיד'], ['Academy_Netanya', 'המכללה האקדמית נתניה'], ['Gates_of_science_and_law', 'המרכז האקדמי שערי מדע ומשפט'], ['Hesegim', 'המכללה להישגים'], ['Academy', 'המכללה למינהל'], ['HaifaUni', 'אוניברסיטת חיפה'], ['Turn', 'תפנית'], ['Ono_Academic_College', 'הקריה האקדמית אונו'], ['Most', 'Most'], ['Exposure', 'Exposure'], ['Dialogue', 'Dialogue'], ['Diploma', 'Diploma']];
+const COURSE_CAT = [['academic_studies', 'לימודים אקדמיים'], ['professional_training', 'הכשרה מקצועית'], ['engineering_technician_degree', 'הנדסאים וטכנאים'], ['courses', 'קורסים']];
+const FORMATS = ['לימודי ערב', 'לימודי בוקר', 'לימודי בוקר/ערב', 'היברידית', 'מקוון', 'פרונטלי'];
+
+/* [code, שם, מבוגרים, ילדים, חדרים, קוד חדר, נפוץ, קבוצה, "לאימות" = הערכה שלי, לא מאומתת מול נתוני החיים] */
+const COMPS = [
+  ['c2_double', 'עובד בחדר זוגי עם עובד נוסף (המחיר לעובד)', 1, 0, 0.5, 'TWN', 1, 'A'],
+  ['c1_single', 'עובד בחדר יחיד', 1, 0, 1, 'SGL', 1, 'A'],
+  ['c1_comp1', 'עובד בחדר זוגי עם נלווה', 2, 0, 1, 'DBL', 1, 'B'],
+  ['c1_comp2', 'עובד + 2 נלווים (3 מבוגרים בחדר)', 3, 0, 1, 'TRP', 1, 'B'],
+  ['c1_comp1_kid1', 'עובד + נלווה + ילד עד גיל 12', 2, 1, 1, 'TRP', 1, 'C'],
+  ['c1_comp1_kid2', 'עובד + נלווה + 2 ילדים בחדר', 2, 2, 1, 'QDR', 1, 'C'],
+  ['c1_comp1_kid2_s', 'עובד + נלווה + 2 ילדים בחדרים נפרדים', 2, 2, 2, 'QDR', 1, 'C'],
+  ['c1_comp1_kid3_s', 'עובד + נלווה + 3 ילדים בחדרים נפרדים', 2, 3, 2, 'QNT', 1, 'C'],
+  ['c2_double_t', 'שני עובדים בחדר בהרשמה משותפת', 2, 0, 1, 'TWN', 0, 'A', 1],
+  ['c3_triple', 'שלושה עובדים בחדר', 3, 0, 1, 'TRP', 0, 'A', 1],
+  ['c3_triple_t', 'שלושה עובדים בחדר בהרשמה משותפת', 3, 0, 1, 'TRP', 0, 'A', 1],
+  ['c4_quad', 'ארבעה עובדים בחדר', 4, 0, 1, 'QDR', 0, 'A', 1],
+  ['c4_quad_t', 'ארבעה עובדים בחדר בהרשמה משותפת', 4, 0, 1, 'QDR', 0, 'A', 1],
+  ['c1_kid2', 'עובד + 2 ילדים בחדר', 1, 2, 1, 'TRP', 0, 'C', 1],
+  ['c1_comp3', 'עובד + 3 נלווים', 4, 0, 1, 'QDR', 0, 'B', 1],
+  ['c1_comp1_kid1_f0t6', 'עובד + נלווה + ילד עד גיל 6', 2, 1, 1, 'TRP', 0, 'C', 1],
+  ['c1_comp1_kid1_f7t12', 'עובד + נלווה + ילד מגיל 7 עד 12', 2, 1, 1, 'TRP', 0, 'C', 1],
+  ['c1_comp1_kid1_f12', 'עובד + נלווה + ילד מעל גיל 12', 2, 1, 1, 'TRP', 0, 'C', 1],
+  ['c1_comp1_g_kid2', 'עובד + נלווה + 2 ילדים בוגרים', 2, 2, 1, 'QDR', 0, 'C', 1],
+  ['c1_comp1_g_kid2_s', 'עובד + נלווה + 2 ילדים בוגרים בחדרים נפרדים', 2, 2, 2, 'QDR', 0, 'C', 1],
+  ['c1_comp1_kid3', 'עובד + נלווה + 3 ילדים בחדר', 2, 3, 1, 'QNT', 0, 'C', 1],
+  ['c1_comp1_g_kid3', 'עובד + נלווה + 3 ילדים בוגרים', 2, 3, 1, 'QNT', 0, 'C', 1],
+  ['c1_comp1_g_kid3_s', 'עובד + נלווה + 3 ילדים בוגרים בחדרים נפרדים', 2, 3, 2, 'QNT', 0, 'C', 1],
+  ['c1_comp1_kid4_s', 'עובד + נלווה + 4 ילדים בחדרים נפרדים', 2, 4, 2, 'QNT', 0, 'C', 1],
+  ['c1_comp2_kid1', 'עובד + 2 נלווים + ילד', 3, 1, 1, 'QDR', 0, 'C', 1],
+  ['c1_comp2_kid2', 'עובד + 2 נלווים + 2 ילדים', 3, 2, 1, 'QNT', 0, 'C', 1],
+  ['c1_comp3_kid1', 'עובד + 3 נלווים + ילד', 4, 1, 1, 'QNT', 0, 'C', 1],
+];
+const GROUP = { A: 'עובדים בלבד', B: 'עובד עם נלווים (מבוגרים)', C: 'עם ילדים' };
+const SHARED = new Set(['c2_double', 'c3_triple', 'c4_quad']);
+const ROLE_DEFAULT_POPUP = 'יש להזין את שם העובד/ת הנוספ/ת שאיתו/ה תרצו להיות בחדר';
+const CALL_LINE = 'לשינוי הרכבי חדר קיימים, יש לפנות למרכז המידע בטלפון 09-8807919.';
+
+const STEPS = [
+  ['req', 'מי מבקשת', 'פרטים ליצירת קשר ולוח זמנים'],
+  ['org', 'הארגון והמיניסייט', 'ארגון, CRM, לוגו ומראה'],
+  ['stay', 'פרטי המוצר', 'מלון/קורס, תאריכים ותיאור'],
+  ['comp', 'הרכבים ומחירים', 'מה אפשר להזמין ובכמה'],
+  ['terms', 'תנאים ותשלום', 'ביטול, מגבלות, מע״מ, תוספות'],
+  ['media', 'תמונות ותוכן', 'גלריה והודעות לגולש'],
+  ['review', 'סקירה ושליחה', 'בדיקה אחרונה וקובץ בקשה'],
+];
+
+/* ---------- מצב ---------- */
+const newProduct = () => ({
+  id: Math.random().toString(36).slice(2, 8), type: 'hotel',
+  known: '', hotelName: '', hotelEn: '', city: '', address: '', region: '', mapUrl: '', facilities: [],
+  start: '', end: '', board: '', subject: '', title: '', titleAuto: true, shortDesc: '', shortAuto: true,
+  lines: { subsidy: true, nights: true, board: true, infant: true, call: true, cancel: true }, extraLines: [''], kashrut: '', kashrutNone: false,
+  comps: {}, infantOn: '', infantMax: '', infantPrice: '', maxRooms: '', partnerPrice: '', partnerNote: '',
+  popupMsg: ROLE_DEFAULT_POPUP, roommateBy: '',
+  extraRoom: '', erPeople: '', erPrice: '', erNote: '',
+  addons: [],
+  userLimit: '1', limitType: 'normal', cancelMode: '', cancelDays: '', cancelFee: '', salary: false, txType: '', tax: '',
+  opensAt: '', closesAt: '', afterStart: false, priceFmt: 'החל מ {0} לעובד', tileMsg: 'המחיר בהתאם לזכאותך',
+  images: [],
+  fl: { dest: '', out: { dc: '', ac: '', date: '', dep: '', arr: '', co: '', no: '' }, back: { dc: '', ac: '', date: '', dep: '', arr: '', co: '', no: '' }, lug: '23', hand: '8', notes: 'מאחלים לכם טיסה נעימה! לא לשכוח להביא עמכם את הדרכון.' },
+  co: { inst: '', branches: '', duration: '', format: '', campaign: '', cat: '', price: '', code: '', credits: '', name: '' },
+});
+const S = {
+  step: 0, cur: 0, touched: {}, attempted: {}, devtab: 'summary',
+  req: { name: '', role: '', email: '', phone: '', urgency: '', goLive: '', notes: '' },
+  org: { name: '', slug: '', accountId: '', priority: '', segment: 's0010', contactName: '', contactPhone: '', contactEmail: '', crmCreated: false, eligibleCount: '', eligibleNote: '', look: '', logo: null, banner: null, slider: [], footer: '', menu: '', welcome: '' },
+  products: [newProduct()],
+};
+const IMG = {}; /* קבצי תמונה בזיכרון בלבד: id -> {file, url} */
+const cp = () => S.products[S.cur];
+
+const getp = (path) => {
+  let o = path.startsWith('p.') ? cp() : S; const parts = path.replace(/^p\./, '').split('.');
+  for (const k of parts) { if (o == null) return undefined; o = o[k]; } return o;
+};
+const setp = (path, v) => {
+  let o = path.startsWith('p.') ? cp() : S; const parts = path.replace(/^p\./, '').split('.');
+  const last = parts.pop(); for (const k of parts) o = o[k]; o[last] = v;
+};
+
+/* ---------- שמירת טיוטה ---------- */
+let saveT;
+function save() {
+  clearTimeout(saveT); saveT = setTimeout(() => {
+    try {
+      const copy = JSON.parse(JSON.stringify(S)); copy.touched = {}; copy.attempted = {};
+      localStorage.setItem(STORE_KEY, JSON.stringify(copy));
+      $('#savedAt').textContent = 'נשמר אוטומטית ' + new Date().toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+    } catch (e) { $('#savedAt').textContent = 'שמירה אוטומטית לא זמינה'; }
+  }, 400);
+}
+function load() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY); if (!raw) return false;
+    const d = JSON.parse(raw); if (!d.products || !d.products.length) return false;
+    d.products.forEach(p => { p.images = []; });
+    Object.assign(S, { req: d.req, org: { ...S.org, ...d.org, logo: null, banner: null, slider: [] }, products: d.products.map(p => ({ ...newProduct(), ...p })), step: d.step || 0, cur: 0 });
+    return true;
+  } catch (e) { return false; }
+}
+
+/* ---------- עזרי תאריך ומחרוזות ---------- */
+const dmy = s => { if (!s) return ''; const [y, m, d] = s.split('-'); return `${d}/${m}/${y}`; };
+const ddmm = s => { const [, m, d] = s.split('-'); return d + m; };
+const nights = p => p.start && p.end ? Math.round((new Date(p.end) - new Date(p.start)) / 864e5) : 0;
+const isoOk = s => /^\d{4}-\d{2}-\d{2}$/.test(s || '') && !isNaN(new Date(s));
+const stripEmoji = s => String(s || '').replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}️‍‪-‮]/gu, '').replace(/[\ud800-\udfff]/g, '');
+const num = v => (v === '' || v == null || isNaN(Number(v))) ? null : Number(v);
+const money = v => num(v) === null ? '' : Number(v).toLocaleString('he-IL') + ' ₪';
+
+function autoTitle(p) {
+  if (p.type === 'course') return p.co.name;
+  const org = S.org.name || '';
+  return [p.subject || (org ? 'נופש ' + org : ''), p.hotelName].filter(Boolean).join(' - ');
+}
+function autoShort(p) {
+  if (p.type !== 'hotel' || !p.hotelName) return '';
+  const b = (BOARD.find(x => x[0] === p.board) || [])[1];
+  const d = p.start && p.end ? `, ${dmy(p.start).slice(0, 5)} - ${dmy(p.end)}` : '';
+  return `${p.subject || 'נופש'} במלון ${p.hotelName}${d}${b ? ', ' + b : ''}.`;
+}
+function infoLines(p) {
+  const L = []; const b = (BOARD.find(x => x[0] === p.board) || [])[1]; const n = nights(p);
+  const top = [], more = [];
+  if (p.lines.subsidy) top.push('המחירים לאחר סבסוד.');
+  if (p.lines.nights && n > 0) top.push(`${n} ${n === 1 ? 'לילה' : 'לילות'} במלון, ${dmy(p.start)} - ${dmy(p.end)}.`);
+  if (p.lines.board && b) top.push(`בסיס אירוח: ${b}.`);
+  if (p.lines.infant && p.infantOn === 'yes') top.push(`ניתן להוסיף תינוק בהרכבים המתאימים, בתוספת ${num(p.infantPrice) ?? '___'} ₪ לתינוק לכל השהייה.`);
+  if (p.kashrut && !p.kashrutNone) top.push(p.kashrut.trim());
+  if (p.lines.cancel) top.push(cancelText(p));
+  p.extraLines.filter(x => x.trim()).forEach(x => top.push(x.trim()));
+  if (p.lines.call) more.push(CALL_LINE);
+  return { top: top.filter(Boolean), more };
+}
+function cancelText(p) {
+  const d = num(p.cancelDays), f = num(p.cancelFee);
+  if (p.cancelMode === 'none') return 'אין אפשרות ביטול לאחר ההזמנה.';
+  if (p.cancelMode === 'free' && d) return `ביטול ללא עלות עד ${d} ימים לפני תחילת השהייה.`;
+  if (p.cancelMode === 'fee' && d && f !== null) return `ביטול בדמי ביטול של ${f} ₪ עד ${d} ימים לפני תחילת השהייה. לאחר מכן לא ניתן לבטל.`;
+  return '';
+}
+function minPrice(p) {
+  const v = Object.entries(p.comps).filter(([, c]) => c.on && num(c.price) !== null && Number(c.price) > 0).map(([, c]) => Number(c.price));
+  return v.length ? Math.min(...v) : null;
+}
+function productId(p) {
+  if (p.type === 'course') return p.co.name ? '(ייווצר מזהה LEAD_… לפי מוסד/שנה/תואר)' : '';
+  const y = (p.start || '').slice(0, 4), slug = S.org.slug, h = p.hotelEn || (p.known === 'yes' ? '<מזהה-מלון-קיים>' : '');
+  if (!y || !slug || !h || !p.end) return '(יושלם כשימולאו ארגון, מלון ותאריכים)';
+  return `hishtalmut_${slug}_${y}_${h}_${ddmm(p.start)}-${ddmm(p.end)}`;
+}
+
+/* ---------- תיקוף ---------- */
+function validate() {
+  const out = []; const E = (step, path, msg, pi = null, level = 'error') => out.push({ step, path, msg, pi, level });
+  const R = S.req, O = S.org;
+  if (!R.name.trim()) E(0, 'req.name', 'חסר שם');
+  if (!R.role.trim()) E(0, 'req.role', 'חסר תפקיד / צוות');
+  if (!/^\S+@\S+\.\S+$/.test(R.email)) E(0, 'req.email', 'כתובת דוא״ל לא תקינה');
+  if (!/^0\d{1,2}-?\d{7}$/.test(R.phone.replace(/\s/g, ''))) E(0, 'req.phone', 'מספר טלפון לא תקין (למשל 052-1234567)');
+  if (!R.urgency) E(0, 'req.urgency', 'יש לבחור דחיפות');
+  if (!isoOk(R.goLive)) E(0, 'req.goLive', 'חסר תאריך עלייה לאוויר רצוי');
+  else if (new Date(R.goLive) < new Date(new Date().toDateString())) E(0, 'req.goLive', 'התאריך כבר עבר', null, 'warn');
+
+  if (!O.name.trim()) E(1, 'org.name', 'חסר שם הארגון');
+  if (!/^[a-z][a-z0-9_]{2,30}$/.test(O.slug)) E(1, 'org.slug', 'באנגלית קטנה בלבד, 3-31 תווים, אותיות/ספרות/קו תחתון, מתחיל באות');
+  if (!/^[A-Za-z0-9]{18}$/.test(O.accountId)) E(1, 'org.accountId', 'מזהה CRM חייב להיות בדיוק 18 תווים (אותיות לטיניות וספרות). נמצא ב-Account ב-CRM');
+  if (!/^\d{3,8}$/.test(O.priority)) E(1, 'org.priority', 'קוד Priority חייב להיות מספר (3-8 ספרות)');
+  if (!O.segment) E(1, 'org.segment', 'יש לבחור סוג אתר');
+  if (!O.contactName.trim()) E(1, 'org.contactName', 'חסר איש קשר בארגון');
+  if (!/^0\d{1,2}-?\d{7}$/.test(O.contactPhone.replace(/\s/g, ''))) E(1, 'org.contactPhone', 'טלפון איש קשר לא תקין');
+  if (O.contactEmail && !/^\S+@\S+\.\S+$/.test(O.contactEmail)) E(1, 'org.contactEmail', 'דוא״ל לא תקין');
+  if (!O.crmCreated) E(1, 'org.crmCreated', 'יש לאשר שנוצרה רשומת Account_Membership ב-CRM');
+  if (!(num(O.eligibleCount) >= 1)) E(1, 'org.eligibleCount', 'חסרה הערכת מספר עובדים זכאים');
+  if (!O.logo) E(1, 'org.logo', 'חסר לוגו הארגון');
+  else if (O.logo.err) E(1, 'org.logo', O.logo.err);
+  if (!O.look) E(1, 'org.look', 'יש לבחור מראה לאתר');
+  if (O.look === 'custom') {
+    if (!O.banner) E(1, 'org.banner', 'חסר באנר לעמוד ההשתלמויות');
+    if (!O.slider.length) E(1, 'org.slider', 'חסרה לפחות תמונת סליידר אחת');
+    if (!O.footer.trim()) E(1, 'org.footer', 'חסר טקסט לתחתית האתר');
+  }
+  if (!O.menu) E(1, 'org.menu', 'יש לבחור סוג תפריט');
+
+  S.products.forEach((p, i) => {
+    const P = (step, path, msg, level) => E(step, 'p.' + path, msg, i, level);
+    if (p.type === 'course') {
+      const c = p.co;
+      if (!c.name.trim()) P(2, 'co.name', 'חסר שם הקורס');
+      if (!c.inst) P(2, 'co.inst', 'חסר מוסד לימודים');
+      if (!c.branches.split(',').some(x => x.trim())) P(2, 'co.branches', 'חובה לפחות סניף אחד (אחרת הדף קורס למשתמש מחובר)');
+      if (!c.duration.trim()) P(2, 'co.duration', 'חסר משך הקורס');
+      if (!c.format.trim()) P(2, 'co.format', 'חסר פורמט לימודים');
+      if (!c.cat) P(2, 'co.cat', 'חסרה קטגוריה');
+      if (c.campaign.trim().length !== 18) P(2, 'co.campaign', 'מזהה קמפיין CRM בן 18 תווים (מתחיל ב-701)');
+      if (num(c.price) === null || num(c.price) < 0) P(3, 'co.price', 'חסר מחיר (0 מותר לקורס שמשאיר פרטים)');
+      if (!p.tax) P(4, 'tax', 'יש לבחור מע״מ');
+      if (!p.txType) P(4, 'txType', 'יש לבחור סוג חיוב');
+      return;
+    }
+    if (!p.known) P(2, 'known', 'יש לבחור אם המלון כבר היה באתר');
+    if (!p.hotelName.trim()) P(2, 'hotelName', 'חסר שם המלון');
+    if (!p.city.trim()) P(2, 'city', 'חסרה עיר');
+    if (!p.region) P(2, 'region', 'חסר אזור');
+    if (p.known !== 'yes') {
+      if (!p.address.trim()) P(2, 'address', 'חסרה כתובת (נדרשת למפה ולכרטיס המלון)');
+      if (!/^[a-z][a-z0-9_]{2,40}$/.test(p.hotelEn)) P(2, 'hotelEn', 'שם מלון באנגלית קטנה (למשל leonardo_club_eilat)');
+      if (!p.facilities.length) P(2, 'facilities', 'בחרי לפחות מתקן אחד', 'warn');
+    } else if (p.hotelEn && !/^[a-z][a-z0-9_]{2,40}$/.test(p.hotelEn)) P(2, 'hotelEn', 'פורמט לא תקין');
+    if (!isoOk(p.start)) P(2, 'start', 'חסר תאריך כניסה');
+    if (!isoOk(p.end)) P(2, 'end', 'חסר תאריך יציאה');
+    if (isoOk(p.start) && isoOk(p.end)) {
+      if (p.end < p.start) P(2, 'end', 'תאריך היציאה לפני הכניסה');
+      else if (p.end === p.start && p.type === 'hotel') P(2, 'end', 'צריך לפחות לילה אחד', 'warn');
+    }
+    if (p.type === 'hotel' && !p.board) P(2, 'board', 'חסר סוג אירוח');
+    if (!p.subject.trim()) P(2, 'subject', 'חסר שם האירוע (למשל: קווים 2027)');
+    if (!p.title.trim()) P(2, 'title', 'חסרה כותרת למוצר');
+    if (p.shortDesc.trim().length < 15) P(2, 'shortDesc', 'תיאור קצר חסר או קצר מדי');
+    if (p.type === 'flight') {
+      const f = p.fl;
+      if (!f.dest.trim()) P(2, 'fl.dest', 'חסר יעד');
+      ['out', 'back'].forEach(k => ['dc', 'ac', 'date', 'dep', 'arr', 'co', 'no'].forEach(x => { if (!String(f[k][x]).trim()) P(2, `fl.${k}.${x}`, 'חסר'); }));
+      if (num(f.lug) === null) P(2, 'fl.lug', 'חסר משקל כבודה'); if (num(f.hand) === null) P(2, 'fl.hand', 'חסר משקל כבודת יד');
+    }
+    const on = Object.entries(p.comps).filter(([, c]) => c.on);
+    if (!on.length) P(3, 'comps', 'יש לסמן לפחות הרכב חדר אחד');
+    on.forEach(([code, c]) => { if (num(c.price) === null || num(c.price) < 0) P(3, 'comps.' + code + '.price', 'חסר מחיר (0 מותר: ללא תשלום)'); });
+    if (!p.infantOn) P(3, 'infantOn', 'יש לבחור אם ניתן להוסיף תינוק');
+    if (p.infantOn === 'yes') { if (!(num(p.infantMax) >= 1)) P(3, 'infantMax', 'חסר מספר תינוקות מקסימלי'); if (num(p.infantPrice) === null || num(p.infantPrice) < 0) P(3, 'infantPrice', 'חסר מחיר לתינוק'); }
+    if (!(num(p.maxRooms) >= 1)) P(3, 'maxRooms', 'חסרה כמות חדרים כוללת');
+    if (!p.roommateBy) P(3, 'roommateBy', 'יש לבחור מי משבץ שותפים לחדר');
+    if (p.roommateBy === 'popup' && !p.popupMsg.trim()) P(3, 'popupMsg', 'חסר טקסט להודעת שותף');
+    if (!p.extraRoom) P(3, 'extraRoom', 'יש לבחור אם יש חדר נוסף');
+    if (p.extraRoom === 'yes') { if (!p.erPeople) P(3, 'erPeople', 'חסר'); if (num(p.erPrice) === null) P(3, 'erPrice', 'חסר מחיר'); }
+    if (!p.partnerPrice) P(3, 'partnerPrice', 'יש לבחור אם יש מחיר נפרד לשותפים שאינם עובדים');
+    if (p.partnerPrice === 'yes' && !p.partnerNote.trim()) P(3, 'partnerNote', 'פרטי את המחיר השונה');
+    p.addons.forEach((a, j) => {
+      if (!a.kind) P(4, `addons.${j}.kind`, 'חסר סוג'); if (!a.name.trim()) P(4, `addons.${j}.name`, 'חסר שם');
+      if (num(a.price) === null || num(a.price) < 0) P(4, `addons.${j}.price`, 'חסר מחיר'); if (!(num(a.max) >= 1)) P(4, `addons.${j}.max`, 'חסר מקסימום');
+    });
+    if (!(num(p.userLimit) >= 1)) P(4, 'userLimit', 'חסרה מגבלת הזמנות לעובד');
+    if (!p.limitType) P(4, 'limitType', 'יש לבחור סוג הגבלה');
+    if (!p.cancelMode) P(4, 'cancelMode', 'יש לבחור מדיניות ביטול');
+    if (p.cancelMode && p.cancelMode !== 'none' && !(num(p.cancelDays) >= 1)) P(4, 'cancelDays', 'חסר מספר ימים (גדול מ-0)');
+    if (p.cancelMode === 'fee' && (num(p.cancelFee) === null || num(p.cancelFee) < 0)) P(4, 'cancelFee', 'חסרים דמי ביטול');
+    if (!p.tax) P(4, 'tax', 'יש לבחור מע״מ');
+    if (!p.txType) P(4, 'txType', 'יש לבחור סוג חיוב');
+    if (!isoOk(p.opensAt)) P(4, 'opensAt', 'חסר תאריך פתיחת הרשמה');
+    if (!isoOk(p.closesAt)) P(4, 'closesAt', 'חסר תאריך סגירת הרשמה');
+    else if (isoOk(p.opensAt) && p.closesAt < p.opensAt) P(4, 'closesAt', 'סגירה לפני פתיחה');
+    else if (isoOk(p.start) && p.closesAt > p.start && !p.afterStart) P(4, 'closesAt', 'ההרשמה נסגרת אחרי תחילת השהייה', 'warn');
+    if (!p.priceFmt.includes('{0}')) P(4, 'priceFmt', 'הניסוח חייב להכיל {0} (מיקום המחיר)');
+    if (!p.tileMsg.trim()) P(4, 'tileMsg', 'חסרה הודעה מתחת למחיר');
+    if (!p.kashrutNone && !p.kashrut.trim()) P(5, 'kashrut', 'כתבי את פרטי הכשרות או סמני "לא רלוונטי"');
+    if (p.images.length < 5) P(5, 'images', `נדרשות לפחות 5 תמונות (הועלו ${p.images.length})`);
+    p.images.forEach((im, k) => { if (im.err) P(5, `images.${k}`, im.name + ': ' + im.err); });
+  });
+  return out;
+}
+const issuesFor = (step, pi) => V.filter(x => x.step === step && (pi == null || x.pi == null || x.pi === pi));
+let V = [];
+const errCount = (step, pi) => issuesFor(step, pi).filter(x => x.level === 'error').length;
+
+/* ---------- בנאי שדות ---------- */
+function fld({ path, label, hint = '', type = 'text', ph = '', req = true, opts, ltr = false, rows, suffix, full = false, rerender = false, min, max, cls = '' }) {
+  const v = getp(path); const id = 'f_' + path.replace(/\W/g, '_');
+  let inner = '';
+  const rq = req ? '<span class="rq">*</span>' : '<span style="color:var(--mute);font-weight:400"> (רשות)</span>';
+  const rr = rerender ? ' data-rr="1"' : '';
+  if (type === 'select') inner = `<select id="${id}" data-path="${path}"${rr}><option value="">בחרי…</option>${opts.map(o => `<option value="${esc(o[0])}"${v === o[0] ? ' selected' : ''}>${esc(o[1])}</option>`).join('')}</select>`;
+  else if (type === 'radio') inner = `<div class="opts ${opts.length > 3 || opts.some(o => o[2]) ? 'stack' : ''}">${opts.map(o => `<label class="opt"><input type="radio" name="${id}" data-path="${path}" value="${esc(o[0])}"${v === o[0] ? ' checked' : ''}${rr}><span>${esc(o[1])}${o[2] ? `<small>${esc(o[2])}</small>` : ''}</span></label>`).join('')}</div>`;
+  else if (type === 'textarea') inner = `<textarea id="${id}" data-path="${path}" rows="${rows || 3}" placeholder="${esc(ph)}">${esc(v)}</textarea>`;
+  else {
+    const inp = `<input id="${id}" type="${type}" data-path="${path}" value="${esc(v)}" placeholder="${esc(ph)}"${min != null ? ` min="${min}"` : ''}${max != null ? ` max="${max}"` : ''}${type === 'number' ? ' inputmode="decimal" step="any"' : ''}${ltr ? ' class="ltr"' : ''}${rr}>`;
+    inner = suffix ? `<div class="suffix">${inp}<span>${suffix}</span></div>` : inp;
+  }
+  return `<div class="f ${full ? 'full' : ''} ${cls}" data-fp="${path}"><label class="l" for="${id}">${label}${rq}</label>${inner}${hint ? `<div class="hint">${hint}</div>` : ''}<div class="err"></div></div>`;
+}
+function chk({ path, title, sub = '', rerender = false, full = true }) {
+  return `<div class="f ${full ? 'full' : ''}" data-fp="${path}"><label class="chk"><input type="checkbox" data-path="${path}"${getp(path) ? ' checked' : ''}${rerender ? ' data-rr="1"' : ''}><span><b>${title}</b>${sub ? `<small>${sub}</small>` : ''}</span></label><div class="err"></div></div>`;
+}
+const note = (t, c = '') => `<div class="note ${c}">${t}</div>`;
+
+/* ---------- מסכים ---------- */
+function pTabs() {
+  return `<div class="ptabs">${S.products.map((p, i) => {
+    const e = [2, 3, 4, 5].reduce((a, s) => a + errCount(s, i), 0);
+    return `<button class="ptab ${i === S.cur ? 'on' : ''}" data-act="pick" data-i="${i}"><i class="${e ? 'bad' : 'ok'}"></i>${esc(p.hotelName || p.co.name || 'מוצר ' + (i + 1))}${p.start ? ' · ' + dmy(p.start).slice(0, 5) : ''}</button>`;
+  }).join('')}<button class="btn sec sm" data-act="addp">+ מוצר נוסף</button><button class="btn ghost sm" data-act="dupp">שכפול מוצר זה</button>${S.products.length > 1 ? '<button class="btn ghost sm" data-act="delp" style="color:var(--err)">מחיקה</button>' : ''}</div>`;
+}
+
+function scReq() {
+  return `<div class="card"><h2>מי מבקשת, ומתי צריך?</h2><p class="lead">כדי שנוכל לחזור אליך עם שאלות ולדעת עד מתי להשלים.</p>
+  <div class="grid">${fld({ path: 'req.name', label: 'שם מלא', ph: 'למשל: שינדי שטרן' })}${fld({ path: 'req.role', label: 'תפקיד / צוות', ph: 'למשל: תפעול הילה' })}
+  ${fld({ path: 'req.email', label: 'דוא״ל', type: 'email', ltr: true, ph: 'name@company.co.il' })}${fld({ path: 'req.phone', label: 'טלפון נייד', type: 'tel', ltr: true, ph: '052-0000000' })}
+  ${fld({ path: 'req.urgency', label: 'דחיפות', type: 'radio', opts: [['normal', 'רגילה (עד 5 ימי עבודה)'], ['urgent', 'דחופה: יש לקוח שמחכה'], ['critical', 'קריטית: עלייה לאוויר השבוע']] })}
+  ${fld({ path: 'req.goLive', label: 'תאריך עלייה לאוויר רצוי', type: 'date', hint: 'התאריך שבו הגננות/העובדים אמורים לראות את האתר.' })}
+  ${fld({ path: 'req.notes', label: 'הערות לצוות הפיתוח', type: 'textarea', req: false, full: true, ph: 'כל דבר שחשוב שנדע ואין לו מקום בטופס' })}</div></div>`;
+}
+
+function scOrg() {
+  const O = S.org;
+  const logoBox = (key, label, hint, multi) => {
+    const items = multi ? O[key] : (O[key] ? [O[key]] : []);
+    return `<div class="f full" data-fp="org.${key}"><label class="l">${label}<span class="rq">*</span></label>
+    <label class="drop" data-drop="${key}"><input type="file" accept="image/*" ${multi ? 'multiple' : ''} class="hide" data-file="${key}"><b>לחצי להעלאה</b> או גררי קובץ לכאן<div class="hint">${hint}</div></label>
+    <div class="thumbs">${items.map((im, k) => `<div class="th ${im.err ? 'bad' : ''}"><button class="x" data-act="rmorg" data-key="${key}" data-k="${k}">×</button><img src="${im.url}" alt=""><div class="m"><b>${esc(im.name)}</b><br>${im.w}×${im.h}</div>${im.err ? `<div class="e">${esc(im.err)}</div>` : ''}</div>`).join('')}</div><div class="err"></div></div>`;
+  };
+  return `<div class="card"><h2>הארגון והמיניסייט</h2><p class="lead">מיניסייט = אותו אתר הילה, עם לוגו ותוכן של הארגון. כל מי שמתחבר מהארגון רואה רק את המוצרים שלו.</p>
+  <h3>זהות הארגון</h3><div class="grid">
+  ${fld({ path: 'org.name', label: 'שם הארגון (כפי שיוצג באתר)', ph: 'קווים תחבורה ציבורית' })}
+  ${fld({ path: 'org.slug', label: 'שם הארגון באנגלית (טכני)', ltr: true, ph: 'kavim', hint: 'אותיות קטנות באנגלית בלבד. ישמש במזהה המוצר.' })}
+  ${fld({ path: 'org.accountId', label: 'מזהה Account ב-CRM (18 תווים)', ltr: true, ph: '0010N00004no5VTQAY', hint: 'מתוך רשומת ה-Account בסיילספורס. מעתיקים, לא מקלידים.' })}
+  ${fld({ path: 'org.priority', label: 'קוד הארגון ב-Priority', ltr: true, ph: '75056', hint: 'לפיו נקבע שם קובץ הזכאים.' })}
+  ${fld({ path: 'org.segment', label: 'סוג אתר (Segment)', type: 'select', opts: SEGMENT, full: true, hint: 'כמעט תמיד "הילה רגיל". שינוי משפיע על דף הבית והמחירון.' })}</div>
+  <h3>איש קשר בארגון</h3><div class="grid g3">
+  ${fld({ path: 'org.contactName', label: 'שם' })}${fld({ path: 'org.contactPhone', label: 'טלפון', type: 'tel', ltr: true })}${fld({ path: 'org.contactEmail', label: 'דוא״ל', type: 'email', ltr: true, req: false })}</div>
+  <h3>CRM וזכאות</h3><div class="grid">
+  ${chk({ path: 'org.crmCreated', title: 'נוצרה רשומת Account_Membership ב-CRM עבור הארגון', sub: 'בלי זה העובדים לא יוכלו להתחבר.' })}
+  ${fld({ path: 'org.eligibleCount', label: 'כמה עובדים זכאים (הערכה)', type: 'number', min: 1, ph: '3000' })}
+  ${fld({ path: 'org.eligibleNote', label: 'מי זכאי ומה הסבסוד', type: 'textarea', req: false, ph: 'למשל: עובדים פעילים בלבד; סבסוד מלא לעובד, נלווה בתשלום' })}</div>
+  ${note('<b>קובץ הזכאים:</b> אחרי שנקבע קוד Priority, שינדי משכפלת קובץ זכאים קיים ומשנה את שמו לקוד הארגון. הצוות יעדכן אותך כשהארגון מוכן.')}
+  <h3>מראה האתר</h3>
+  ${fld({ path: 'org.look', label: 'איך האתר ייראה לעובדי הארגון?', type: 'radio', rerender: true, full: true, opts: [['logo', 'עיצוב הילה רגיל + לוגו הארגון בכותרת', 'הכי מהיר ונפוץ. דף הבית והבאנרים של הילה כרגיל.'], ['custom', 'עיצוב ייחודי לארגון', 'באנר קטגוריה, סליידר בדף הבית וטקסט תחתון ייחודיים. דורש חומרים נוספים.']] })}
+  ${logoBox('logo', 'לוגו הארגון', 'PNG עם רקע שקוף, גובה מומלץ 64 פיקסלים ומעלה, לוגו אופקי.', false)}
+  ${O.look === 'custom' ? `${logoBox('banner', 'באנר לעמוד ההשתלמויות', 'רוחב 1440 פיקסלים, גובה 200. JPG או PNG.', false)}${logoBox('slider', 'תמונות סליידר לדף הבית', 'אחת או יותר, רוחב 1440 פיקסלים לפחות.', true)}
+  ${fld({ path: 'org.footer', label: 'טקסט בתחתית האתר', type: 'textarea', full: true, ph: 'למשל: האתר מופעל על ידי הילה בשיתוף ועד העובדים…' })}` : ''}
+  <div class="grid">${fld({ path: 'org.menu', label: 'תפריט ראשי', type: 'radio', full: true, opts: [['std', 'תפריט הילה הרגיל'], ['own', 'תפריט השתלמויות ייחודי לארגון', 'מציג רק את מוצרי הארגון']] })}
+  ${fld({ path: 'org.welcome', label: 'הודעת ברכה בכותרת (רשות)', req: false, ph: 'ברוך/ה הבא/ה לאתר הילה עם ' + (O.name || '…'), full: true, hint: 'אם ריק: "ברוך/ה הבא/ה לאתר הילה עם ' + esc(O.name || 'שם הארגון') + '".' })}</div></div>`;
+}
+
+function typePicker(p) {
+  return `<div class="grid"><div class="f full" data-fp="p.type"><label class="l">מה סוג המוצר?<span class="rq">*</span></label><div class="opts">${[['hotel', 'שהייה / השתלמות בארץ'], ['flight', 'השתלמות בחו״ל (טיסה)'], ['course', 'קורס / לימודים']].map(o => `<label class="opt"><input type="radio" name="ptype" data-path="p.type" value="${o[0]}" data-rr="1"${p.type === o[0] ? ' checked' : ''}><span>${o[1]}</span></label>`).join('')}</div></div></div>`;
+}
+
+function scStay() {
+  const p = cp();
+  let h = `<div class="card">${pTabs()}<h2>פרטי המוצר</h2><p class="lead">כל מה שהגולש רואה בכרטיס ובעמוד המוצר.</p>${typePicker(p)}`;
+  if (p.type === 'course') {
+    h += `<h3>הקורס</h3><div class="grid">${fld({ path: 'p.co.name', label: 'שם הקורס / התואר', full: true, ph: 'תואר ראשון במנהל עסקים' })}
+    ${fld({ path: 'p.co.inst', label: 'מוסד לימודים', type: 'select', opts: INSTITUTION })}${fld({ path: 'p.co.cat', label: 'קטגוריה באתר', type: 'select', opts: COURSE_CAT })}
+    ${fld({ path: 'p.co.branches', label: 'סניפים (מופרדים בפסיק)', ph: 'תל אביב, חיפה', hint: 'חובה לפחות אחד.' })}${fld({ path: 'p.co.duration', label: 'משך', ph: 'שלוש שנים' })}
+    <div class="f" data-fp="p.co.format"><label class="l" for="cf">פורמט לימודים<span class="rq">*</span></label><input id="cf" list="fmts" data-path="p.co.format" value="${esc(p.co.format)}"><datalist id="fmts">${FORMATS.map(x => `<option value="${x}">`).join('')}</datalist><div class="err"></div></div>
+    ${fld({ path: 'p.co.campaign', label: 'מזהה קמפיין CRM (18 תווים)', ltr: true, ph: '701…' })}
+    ${fld({ path: 'p.co.code', label: 'קוד קורס אצל הספק', req: false })}${fld({ path: 'p.co.credits', label: 'נקודות גמול', type: 'number', req: false })}</div>`;
+  } else {
+    h += `<h3>המלון</h3><div class="grid">
+    ${fld({ path: 'p.known', label: 'האם המלון כבר הופיע באתר הילה בעבר?', type: 'radio', rerender: true, full: true, opts: [['yes', 'כן'], ['no', 'לא, מלון חדש'], ['unsure', 'לא בטוחה']], hint: 'אם לא בטוחה, נבדוק. נשמח לפרטים מלאים כדי לא להיתקע.' })}
+    ${fld({ path: 'p.hotelName', label: 'שם המלון', ph: 'לאונרדו קלאב אילת - פתאל' })}${fld({ path: 'p.city', label: 'עיר', ph: 'אילת' })}
+    ${fld({ path: 'p.region', label: 'אזור', type: 'select', opts: REGION })}
+    ${fld({ path: 'p.hotelEn', label: 'שם המלון באנגלית (טכני)', ltr: true, ph: 'leonardo_club_eilat', req: p.known !== 'yes', hint: 'אותיות קטנות, קו תחתון במקום רווח. תיקיית התמונות נקראת כך.' })}
+    ${fld({ path: 'p.address', label: 'כתובת', req: p.known !== 'yes', ph: 'החוף הצפוני', full: true })}
+    ${p.known !== 'yes' ? `<div class="f full" data-fp="p.facilities"><label class="l">מתקנים במלון<span class="rq">*</span></label><div class="opts">${FACILITY.map(f => `<label class="opt"><input type="checkbox" data-fac="${f[0]}"${p.facilities.includes(f[0]) ? ' checked' : ''}><span>${f[1]}</span></label>`).join('')}</div><div class="err"></div></div>` : ''}</div>`;
+    h += `<h3>התאריכים והאירוח</h3><div class="grid">${fld({ path: 'p.start', label: p.type === 'flight' ? 'תאריך יציאה' : 'תאריך כניסה', type: 'date' })}${fld({ path: 'p.end', label: p.type === 'flight' ? 'תאריך חזרה' : 'תאריך יציאה', type: 'date' })}
+    ${p.type === 'hotel' ? fld({ path: 'p.board', label: 'סוג אירוח', type: 'select', opts: BOARD, full: true }) : ''}</div>
+    ${nights(p) > 0 ? `<div class="hint" style="margin-top:6px">${nights(p)} לילות</div>` : ''}`;
+    if (p.type === 'flight') {
+      const leg = (k, t) => `<h3>${t}</h3><div class="grid g3">${[['dc', 'עיר יציאה'], ['ac', 'עיר נחיתה'], ['date', 'תאריך', 'date'], ['dep', 'שעת המראה', 'time'], ['arr', 'שעת נחיתה', 'time'], ['co', 'חברת תעופה'], ['no', 'מספר טיסה']].map(([x, l, t2]) => fld({ path: `p.fl.${k}.${x}`, label: l, type: t2 || 'text' })).join('')}</div>`;
+      h += `<h3>יעד</h3><div class="grid">${fld({ path: 'p.fl.dest', label: 'יעד', ph: 'ברלין' })}${fld({ path: 'p.fl.lug', label: 'כבודה (ק״ג)', type: 'number' })}${fld({ path: 'p.fl.hand', label: 'כבודת יד (ק״ג)', type: 'number' })}${fld({ path: 'p.fl.notes', label: 'הודעה לנוסעים', type: 'textarea', full: true })}</div>${leg('out', 'טיסת הלוך')}${leg('back', 'טיסת חזור')}${note('המחירים בטיסות הם בדולרים (USD).', 'warn')}`;
+    }
+  }
+  if (p.type !== 'course') {
+    h += `<h3>כותרת ותיאור</h3><div class="grid">${fld({ path: 'p.subject', label: 'שם האירוע / הסדרה', ph: 'קווים 2027', hint: 'מופיע בדוחות ובכותרת.' })}
+    ${fld({ path: 'p.title', label: 'כותרת המוצר', full: true, hint: 'מתמלאת אוטומטית. אפשר לערוך.' })}
+    ${fld({ path: 'p.shortDesc', label: 'תיאור קצר (בכרטיס)', type: 'textarea', full: true, rows: 2 })}</div>
+    <h3>מה יופיע בעמוד המוצר ("שימו לב")</h3><p class="lead">סמני שורות סטנדרטיות. הן נבנות אוטומטית מהנתונים, ואת השאר אפשר להוסיף כאן.</p>
+    <div class="grid">${[['subsidy', 'המחירים לאחר סבסוד', 'להסיר אם אין סבסוד'], ['nights', 'מספר לילות ותאריכים', 'אוטומטי'], ['board', 'בסיס אירוח', 'אוטומטי'], ['infant', 'אפשרות להוסיף תינוק', 'מופיע אם בחרת תינוק'], ['cancel', 'מדיניות ביטול', 'מתמלא ממסך התנאים'], ['call', 'לשינוי הרכבים: מרכז מידע 09-8807919', 'מופיע ב"מידע נוסף"']].map(([k, t, s]) => `<div class="f"><label class="chk"><input type="checkbox" data-line="${k}"${p.lines[k] ? ' checked' : ''}><span><b>${t}</b><small>${s}</small></span></label></div>`).join('')}</div>
+    <div class="f full" style="margin-top:14px"><label class="l">שורות נוספות</label>${p.extraLines.map((x, i) => `<input type="text" data-extra="${i}" value="${esc(x)}" placeholder="למשל: ארוחת ערב חגיגית בשבת" style="width:100%;padding:11px 12px;border:1.5px solid #c5d1e0;border-radius:10px;margin-bottom:8px">`).join('')}<button class="btn ghost sm" data-act="addline">+ שורה נוספת</button></div>
+    <div class="note" id="infoPreview"></div>`;
+  } else {
+    h += `<div class="note">הקורס יוצג עם אותם מחירים לכל המשתמשים בארגון.</div>`;
+  }
+  return h + '</div>';
+}
+
+function compRow(c, p) {
+  const [code, name, ad, kd, rm, rc, , , unv] = c; const st = p.comps[code] || {};
+  return `<tr class="${st.on ? '' : 'off'} ${st.on && num(st.price) === null ? 'bad' : ''}" data-comp="${code}"><td><span class="tog"><input type="checkbox" data-cc="${code}"${st.on ? ' checked' : ''}><i></i></span></td>
+  <td><b>${name}</b>${unv ? ' <span class="tag" title="הערכה: מתאמתת מול הצוות">לאימות</span>' : ''}</td>
+  <td><input type="number" min="0" step="any" data-cp="${code}" value="${esc(st.price ?? '')}" ${st.on ? '' : 'disabled'} placeholder="מחיר ₪"></td>
+  <td><span class="tag">${ad}+${kd} · ${rm === 0.5 ? 'חצי חדר' : rm + ' חדר' + (rm > 1 ? 'ים' : '')}</span></td></tr>`;
+}
+function scComp() {
+  const p = cp();
+  if (p.type === 'course') {
+    return `<div class="card">${pTabs()}<h2>מחיר</h2><div class="grid">${fld({ path: 'p.co.price', label: 'מחיר', type: 'number', min: 0, suffix: '₪', hint: '0 = קורס שמשאיר פרטים, המחיר מוצג במקום אחר.' })}</div></div>`;
+  }
+  const cur = p.type === 'flight' ? '$' : '₪'; const groups = ['A', 'B', 'C'];
+  const rows = (common) => groups.map(g => { const rs = COMPS.filter(c => !!c[6] === common && c[7] === g); return rs.length ? `<tr><td colspan="4" style="background:#f7f9fc;font-weight:800;color:var(--primary)">${GROUP[g]}</td></tr>` + rs.map(c => compRow(c, p)).join('') : ''; }).join('');
+  return `<div class="card">${pTabs()}<h2>הרכבים ומחירים</h2><p class="lead">סמני כל הרכב שאפשר להזמין והזיני את המחיר שהעובד משלם (אחרי סבסוד). <b>0 = ללא תשלום.</b> הרכב שלא סומן, לא יוצג.</p>
+  <div class="f" data-fp="p.comps"><div class="tablewrap"><table class="comps"><thead><tr><th></th><th>הרכב</th><th>מחיר (${cur}) לכל השהייה</th><th>מבוגרים+ילדים · חדרים</th></tr></thead><tbody>${rows(true)}</tbody></table></div><div class="err"></div></div>
+  <details style="margin-top:10px"><summary style="cursor:pointer;font-weight:700;color:var(--primary)">הרכבים נוספים (פחות נפוצים)</summary><div class="tablewrap" style="margin-top:8px"><table class="comps"><tbody>${rows(false)}</tbody></table></div></details>
+  ${p.comps.c2_double?.on ? note('<b>עובד בחדר זוגי עם עובד נוסף</b> נספר כחצי חדר: כל הזמנה תופסת חצי חדר, והמערכת מחלקת חדרים בהתאם.') : ''}
+  <h3>קיבולת ושיבוץ</h3><div class="grid">
+  ${fld({ path: 'p.maxRooms', label: 'כמה חדרים בסך הכל?', type: 'number', min: 1, hint: 'כמות החדרים שהוקצתה לארגון במלון, לכל ההרכבים יחד. נשלח ל-CRM.' })}
+  ${fld({ path: 'p.roommateBy', label: 'מי משבץ שותפים לחדר?', type: 'radio', rerender: true, opts: [['staff', 'הילה משבצת בעצמה (בלי חלון באתר)'], ['popup', 'העובד מזין שם שותף בעת ההזמנה'], ['na', 'לא רלוונטי: אין חדר משותף']] })}
+  ${p.roommateBy === 'popup' ? fld({ path: 'p.popupMsg', label: 'הנוסח בחלון', type: 'textarea', full: true, rows: 2 }) : ''}</div>
+  <h3>תינוקות</h3><div class="grid">${fld({ path: 'p.infantOn', label: 'ניתן להוסיף תינוק (עד גיל 2) בתוספת?', type: 'radio', rerender: true, opts: [['yes', 'כן'], ['no', 'לא']] })}
+  ${p.infantOn === 'yes' ? `${fld({ path: 'p.infantMax', label: 'מקסימום תינוקות להזמנה', type: 'number', min: 1 })}${fld({ path: 'p.infantPrice', label: 'מחיר לתינוק', type: 'number', min: 0, suffix: cur })}` : ''}</div>
+  <h3>חדר נוסף ומחיר לשותפים</h3><div class="grid">${fld({ path: 'p.extraRoom', label: 'ניתן להזמין חדר נוסף (לילדים)?', type: 'radio', rerender: true, opts: [['yes', 'כן'], ['no', 'לא']] })}
+  ${p.extraRoom === 'yes' ? `${fld({ path: 'p.erPeople', label: 'כמה אנשים בחדר הנוסף', type: 'select', opts: [['2', '2'], ['3', '3']] })}${fld({ path: 'p.erPrice', label: 'מחיר החדר הנוסף', type: 'number', min: 0, suffix: cur })}${fld({ path: 'p.erNote', label: 'באילו הרכבים?', req: false, full: true })}` : ''}
+  ${fld({ path: 'p.partnerPrice', label: 'מחיר שונה לבן/בת זוג שאינם עובדי הארגון?', type: 'radio', rerender: true, full: true, opts: [['no', 'לא, אותו מחיר'], ['yes', 'כן, יש מחיר שותף']] })}
+  ${p.partnerPrice === 'yes' ? fld({ path: 'p.partnerNote', label: 'פרטי את המחירים', type: 'textarea', full: true, rows: 2 }) : ''}</div></div>`;
+}
+
+function scTerms() {
+  const p = cp(); const cur = p.type === 'flight' ? '$' : '₪';
+  const cn = p.cancelMode;
+  if (p.type === 'course') {
+    return `<div class="card">${pTabs()}<h2>תשלום</h2><div class="grid">${fld({ path: 'p.tax', label: 'מע״מ', type: 'radio', opts: [['zero', 'המחיר סופי (ללא מע״מ נוסף)'], ['standard', 'המחיר חייב במע״מ']] })}${fld({ path: 'p.txType', label: 'חיוב', type: 'radio', opts: [['j4', 'חיוב מיידי'], ['j5', 'אישור בלבד (חיוב בהמשך)']] })}</div></div>`;
+  }
+  return `<div class="card">${pTabs()}<h2>תנאים ותשלום</h2><p class="lead">כאן נקבע מה קורה אחרי ההזמנה: כמה אפשר להזמין, איך מבטלים, ואיך משלמים.</p>
+  <h3>הרשמה</h3><div class="grid">${fld({ path: 'p.opensAt', label: 'פתיחת הרשמה', type: 'date' })}${fld({ path: 'p.closesAt', label: 'סגירת הרשמה', type: 'date', hint: 'ברירת מחדל: יום הכניסה.' })}
+  ${chk({ path: 'p.afterStart', title: 'לאפשר הזמנה גם אחרי תחילת השהייה', sub: 'נדיר. ברירת המחדל: ההרשמה נחסמת ביום הכניסה.' })}
+  ${fld({ path: 'p.userLimit', label: 'כמה הזמנות מותר לעובד?', type: 'number', min: 1, hint: 'בדרך כלל 1. מגבלה "רכה": נאכפת בעיקר בממשק.' })}
+  ${fld({ path: 'p.limitType', label: 'סוג הגבלה', type: 'radio', opts: [['normal', 'הגבלה רגילה (לפי זכאות העובד)'], ['gmul', 'הגבלת גמול השתלמות']] })}</div>
+  <h3>מדיניות ביטול</h3><div class="grid">${fld({ path: 'p.cancelMode', label: 'מה קורה אם עובד רוצה לבטל?', type: 'radio', rerender: true, full: true, opts: [['none', 'אין ביטול', 'הזמנה סופית'], ['free', 'ביטול חינם עד מועד מסוים'], ['fee', 'ביטול בתשלום דמי ביטול עד מועד מסוים']] })}
+  ${cn && cn !== 'none' ? fld({ path: 'p.cancelDays', label: 'עד כמה ימים לפני הכניסה אפשר לבטל', type: 'number', min: 1, suffix: 'ימים', hint: 'למשל 30 = עד חודש לפני.' }) : ''}${cn === 'fee' ? fld({ path: 'p.cancelFee', label: 'דמי ביטול', type: 'number', min: 0, suffix: cur }) : ''}</div>
+  ${cancelText(p) ? note('בעמוד המוצר: <b>' + esc(cancelText(p)) + '</b>', 'ok') : ''}
+  <h3>תשלום ומע״מ</h3><div class="grid">${fld({ path: 'p.tax', label: 'מע״מ', type: 'radio', opts: [['zero', 'המחיר סופי, ללא מע״מ נוסף', 'לא בטוחה? שאלי את הנהלת החשבונות'], ['standard', 'המחיר חייב במע״מ']] })}
+  ${fld({ path: 'p.txType', label: 'סוג חיוב', type: 'radio', opts: [['j4', 'חיוב מיידי בכרטיס אשראי'], ['j5', 'אישור בלבד, החיוב בהמשך']] })}
+  ${chk({ path: 'p.salary', title: 'לאפשר גם ניכוי משכורת', sub: 'כבוי כברירת מחדל. רק אם סוכם עם הארגון.' })}</div>
+  <h3>ניסוח המחיר באתר</h3><div class="grid">${fld({ path: 'p.priceFmt', label: 'ניסוח מחיר בכרטיס', hint: '{0} = המחיר. למשל: החל מ {0} לעובד' })}${fld({ path: 'p.tileMsg', label: 'הודעה מתחת למחיר' })}</div>
+  <h3>תוספות בתשלום (רשות)</h3><p class="lead">ארוחה כשרה, הסעה, שייט וכו׳.</p>
+  ${p.addons.map((a, j) => `<div class="rowcard"><div class="grid g3">${fld({ path: `p.addons.${j}.kind`, label: 'סוג', type: 'select', opts: ADDON, rerender: true })}${fld({ path: `p.addons.${j}.name`, label: 'שם' })}${fld({ path: `p.addons.${j}.price`, label: 'מחיר', type: 'number', min: 0, suffix: cur })}${fld({ path: `p.addons.${j}.max`, label: 'מקסימום להזמנה', type: 'number', min: 1 })}</div><button class="btn ghost sm" data-act="rmaddon" data-j="${j}" style="color:var(--err)">הסרה</button></div>`).join('')}
+  <button class="btn sec sm" data-act="addaddon">+ הוספת תוספת</button></div>`;
+}
+
+function scMedia() {
+  const p = cp();
+  return `<div class="card">${pTabs()}<h2>תמונות ותוכן</h2>
+  <h3>כשרות והודעות</h3><div class="grid">${fld({ path: 'p.kashrut', label: 'פרטי כשרות', type: 'textarea', rows: 2, full: true, ph: 'למשל: מלון בכשרות מהדרין, שבת בכשרות רבנות', req: !p.kashrutNone })}
+  ${chk({ path: 'p.kashrutNone', title: 'לא רלוונטי, אין מה לציין', rerender: true })}</div>
+  <h3>גלריית המלון</h3><div class="note">נדרשות <b>לפחות 5 תמונות</b>, JPEG אמיתי, רוחב 1000 פיקסלים ומעלה. התמונה הראשונה היא הראשית. קבצי AVIF/WebP ששמם .jpg ייפסלו.</div>
+  <div class="f" data-fp="p.images"><label class="drop" data-drop="gallery"><input type="file" accept="image/*" multiple class="hide" data-file="gallery"><b>לחצי להעלאת תמונות</b> או גררי לכאן<div class="hint">אפשר כמה יחד. אפשר לשנות סדר בעזרת חצים.</div></label>
+  <div class="thumbs">${p.images.map((im, k) => `<div class="th ${im.err ? 'bad' : ''}">${k === 0 ? '<span class="badge">ראשית</span>' : ''}<button class="x" data-act="rmimg" data-k="${k}">×</button><img src="${im.url}" alt=""><div class="m"><b>${esc(im.name)}</b><br>${im.w}×${im.h} · ${Math.round(im.size / 1024)}KB<br><a data-act="imgup" data-k="${k}" style="cursor:pointer;color:var(--primary)">◄ הקדמה</a></div>${im.err ? `<div class="e">${esc(im.err)}</div>` : ''}</div>`).join('')}</div><div class="err"></div></div></div>`;
+}
+
+/* ---------- סקירה ---------- */
+function buildExport() {
+  const P = S.products.map(p => {
+    const il = infoLines(p);
+    const comps = COMPS.filter(c => p.comps[c[0]]?.on).map(c => ({ roomType: c[0], name: c[1], roomTypeCode: c[5], adults: c[2], kids: c[3], roomAmount: c[4], price: num(p.comps[c[0]].price), currency: p.type === 'flight' ? 'USD' : 'ILS', variantId: productId(p) + ':' + c[0], needsReview: !!c[8] }));
+    const base = { productId: productId(p), type: p.type };
+    if (p.type === 'course') return { ...base, course: p.co, tax: p.tax, transaction: p.txType };
+    return {
+      ...base, hotel: { storeKnown: p.known, name: p.hotelName, hotelId: p.hotelEn, city: p.city, address: p.address, region: p.region, mapUrl: p.mapUrl || ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(p.hotelName + ' ' + p.address + ' ' + p.city)), facilities: p.facilities },
+      stay: { start: p.start, end: p.end, startStr: dmy(p.start), endStr: dmy(p.end), nights: nights(p), accommodationType: p.board, subject: p.subject },
+      content: { title: p.title, shortDescription: p.shortDesc, importantLines: il.top, moreInfoLines: il.more, kashrut: p.kashrutNone ? '' : p.kashrut, tilePriceFormat: p.priceFmt, tilePriceExtraMsg: p.tileMsg, fromPrice: minPrice(p) },
+      variants: comps, infant: p.infantOn === 'yes' ? { max: num(p.infantMax), price: num(p.infantPrice), optionId: 'toddlers' } : null,
+      capacity: { maxRoomAmount: num(p.maxRooms), roommate: p.roommateBy, roommatePopupMessage: p.roommateBy === 'popup' ? p.popupMsg : '' },
+      extraRoom: p.extraRoom === 'yes' ? { people: num(p.erPeople), price: num(p.erPrice), note: p.erNote } : null, partnerPrice: p.partnerPrice === 'yes' ? p.partnerNote : null,
+      addons: p.addons.map(a => ({ ...a, price: num(a.price), max: num(a.max) })),
+      terms: { userLimitAmountToOrder: num(p.userLimit), limitType: p.limitType, cancellationMode: p.cancelMode, daysCanBeCancelled: num(p.cancelDays), cancellationFee: p.cancelMode === 'fee' ? num(p.cancelFee) : null, taxClassID: p.tax, payPlus_transactionType: p.txType, disabledPaymentMethods: p.salary ? [] : ['SALARY_PAY'], opensAt: p.opensAt, closesAt: p.closesAt, allowPurchaseAfterStartDate: p.afterStart, searchable: true, onlineTo: p.closesAt, crm_useInventoryLogic: true, lockSearchPrices: true },
+      flight: p.type === 'flight' ? p.fl : undefined, images: p.images.map((im, k) => ({ n: k + 1, file: im.name, w: im.w, h: im.h })),
+    };
+  });
+  return { schema: 'hila-intake/1', createdAt: new Date().toISOString(), requester: S.req, organization: { ...S.org, logo: S.org.logo && S.org.logo.name, banner: S.org.banner && S.org.banner.name, slider: S.org.slider.map(x => x.name) }, products: P };
+}
+function textSummary() {
+  const R = S.req, O = S.org; const L = [];
+  L.push(`בקשה לפתיחת מיניסייט: ${O.name}`, `מבקשת: ${R.name}, ${R.role}, ${R.phone}, ${R.email}`, `עלייה לאוויר: ${dmy(R.goLive)} · דחיפות: ${({ normal: 'רגילה', urgent: 'דחופה', critical: 'קריטית' })[R.urgency] || ''}`, '', `ארגון: ${O.name} (${O.slug})`, `CRM Account ID: ${O.accountId}`, `Priority: ${O.priority} · Segment: ${O.segment}`, `איש קשר: ${O.contactName} ${O.contactPhone}`, `מראה: ${O.look === 'custom' ? 'עיצוב ייחודי' : 'הילה + לוגו'}`, '');
+  S.products.forEach((p, i) => {
+    L.push(`מוצר ${i + 1}: ${p.title || p.co.name}`);
+    if (p.type !== 'course') {
+      L.push(`  מלון: ${p.hotelName}, ${p.city} · ${dmy(p.start)} - ${dmy(p.end)} (${nights(p)} לילות) · ${(BOARD.find(b => b[0] === p.board) || [])[1] || ''}`);
+      COMPS.filter(c => p.comps[c[0]]?.on).forEach(c => L.push(`  • ${c[1]}: ${money(p.comps[c[0]].price)}`));
+      L.push(`  חדרים: ${p.maxRooms} · תינוק: ${p.infantOn === 'yes' ? money(p.infantPrice) : 'לא'} · ביטול: ${cancelText(p) || ''} · תמונות: ${p.images.length}`);
+    } else L.push(`  ${p.co.name} · ${money(p.co.price)}`);
+    L.push('');
+  });
+  return L.join('\n');
+}
+
+function scReview() {
+  const bad = V.filter(x => x.level === 'error'), warn = V.filter(x => x.level === 'warn');
+  const stepName = i => STEPS[i][1];
+  const list = (arr, cls) => arr.length ? `<ul class="issues">${arr.map((x, k) => `<li>${x.pi != null ? `<b>מוצר ${x.pi + 1}</b> · ` : ''}${stepName(x.step)}: ${esc(x.msg)} <a data-act="goto" data-step="${x.step}" data-pi="${x.pi ?? ''}" data-path="${esc(x.path)}">לתיקון</a></li>`).join('')}</ul>` : '';
+  let h = `<div class="card"><h2>סקירה אחרונה</h2>`;
+  h += bad.length ? note(`<b>חסרים ${bad.length} פרטים</b> לפני שאפשר לשלוח. הפרטים מסומנים בקישורים לתיקון מהיר.`, 'bad') + list(bad) : note('<b>הכל מלא.</b> הבקשה מוכנה לשליחה.', 'ok');
+  if (warn.length) h += note('<b>שימי לב (לא חוסם):</b>', 'warn') + list(warn);
+  h += `<div class="tabs nodev"><button data-act="dtab" data-t="summary" class="${S.devtab === 'summary' ? 'on' : ''}">סיכום לקריאה</button><button data-act="dtab" data-t="dev" class="${S.devtab === 'dev' ? 'on' : ''}">גיליון טכני (לצוות הפיתוח)</button></div>`;
+  if (S.devtab === 'dev') h += `<pre class="code">${esc(JSON.stringify(buildExport(), null, 2))}</pre>`;
+  else {
+    const O = S.org, R = S.req;
+    h += `<div class="sum"><h4>הארגון</h4><dl class="kv"><dt>שם</dt><dd>${esc(O.name)}</dd><dt>CRM Account ID</dt><dd class="ltr">${esc(O.accountId)}</dd><dt>Priority</dt><dd>${esc(O.priority)}</dd><dt>איש קשר</dt><dd>${esc(O.contactName)} · ${esc(O.contactPhone)}</dd><dt>מראה</dt><dd>${O.look === 'custom' ? 'עיצוב ייחודי' : 'הילה + לוגו'}</dd><dt>לוגו</dt><dd>${O.logo ? `<img src="${O.logo.url}" style="height:30px;vertical-align:middle">` : '-'}</dd></dl>`;
+    S.products.forEach((p, i) => {
+      h += `<h4>מוצר ${i + 1}: ${esc(p.title || p.co.name)}</h4>`;
+      if (p.type === 'course') { h += `<dl class="kv"><dt>מוסד</dt><dd>${esc((INSTITUTION.find(x => x[0] === p.co.inst) || [])[1])}</dd><dt>מחיר</dt><dd>${money(p.co.price)}</dd></dl>`; return; }
+      const on = COMPS.filter(c => p.comps[c[0]]?.on);
+      h += `<dl class="kv"><dt>מלון</dt><dd>${esc(p.hotelName)}, ${esc(p.city)}</dd><dt>תאריכים</dt><dd>${dmy(p.start)} - ${dmy(p.end)} (${nights(p)} לילות)</dd><dt>אירוח</dt><dd>${esc((BOARD.find(b => b[0] === p.board) || [])[1] || '')}</dd><dt>הרכבים</dt><dd>${on.map(c => `${esc(c[1])}: ${money(p.comps[c[0]].price)}`).join('<br>')}</dd><dt>חדרים</dt><dd>${esc(p.maxRooms)}</dd><dt>ביטול</dt><dd>${esc(cancelText(p))}</dd><dt>מע״מ / חיוב</dt><dd>${p.tax === 'zero' ? 'ללא מע״מ נוסף' : p.tax === 'standard' ? 'חייב מע״מ' : ''} · ${p.txType === 'j4' ? 'חיוב מיידי' : p.txType === 'j5' ? 'אישור בלבד' : ''}</dd><dt>תמונות</dt><dd>${p.images.length}</dd></dl>`;
+    });
+    h += '</div>';
+  }
+  h += `<div class="actions nodev" style="margin-top:20px"><button class="btn pri" data-act="dl"${bad.length ? ' disabled' : ''}>הורדת קובץ בקשה (JSON)</button><button class="btn sec" data-act="copy">העתקת סיכום (מייל / וואטסאפ)</button></div>
+  <div class="note nodev" style="margin-top:14px">הטופס לא שולח דבר בעצמו. אחרי ההורדה שלחי את הקובץ ואת התמונות (${S.products.reduce((a, p) => a + p.images.length, 0)} קבצים) לצוות הפיתוח.</div></div>`;
+  return h;
+}
+
+/* ---------- תצוגה מקדימה ---------- */
+function preview() {
+  const O = S.org, p = cp(); const first = p.images[0];
+  const mp = minPrice(p) ?? (p.type === 'course' ? num(p.co.price) : null);
+  return `<div class="pv"><h5>כך ייראה האתר לעובדי הארגון</h5><div class="pvh"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE0AAAAaCAYAAADygtH/AAAACXBIWXMAAAsSAAALEgHS3X78AAADAElEQVRYhe2YMU/bQBTHf40ydGrDBzgp/QR1JYYqS5zpxsLULqjp2imRMkOzR6Ld2GJGptLRE/GSFX8EV/4CGUEI0cE2cey7+GIci6j8JBR49+7u8c+9d88GE4RsGfn9J7xaOxqJdQW0gR6h69cQ07NHL9pSMCu2LHgRDtCJlhcsoV7hhLQBO2XpAj6hO6xlfw3NnEUvGEA0JmRdwtnASQ37bMSqaGrBFsAMOIj/ToQbErrO2tWFPEUtfhof+As4hO7CIGYLIa8KfM4JXUfjl5zSU4O9PKKTfZk2LkUT0gKmZAT78v3u1373/u3o82sH6Mf2FjBFSAqEs1hNLxXJ+ClCjgndHwX+LYM1vcza2fm6sSyRj5A+8C3JrkbK4TcZwY6Gd85+9/4EGEwubgCczKJThGwbbG7KSXw6n0rVpcMiyi4LVkVrp34PjoZ3zvuP94OUra8Rrk21DOIL4CnMKogjS4s4pdOiJfXEPz67nWUES+hPLm6sN3sPDhDEc0zq0KZ8fcLcS8PaWAYbIa1lTQvdPYDJvDtlWbtUWMdntwAfRh1vfXCh2ysMQ8gB+aJsx58O+lPTIiopWf4U7hm6M4ob+zb5kgVgr0w0ECyND/QKhTNByOtccKFb9E/1iS6uLHuPJ03IB8V4LxbNJC4LuM5Yx4/puaFgEBfHybxbxXNp8enI80lh8ytNTU0v2oRSgiUkwqlPXNQn2SnLzChlzbAVtvOCOQGhO4svmmwPZ9LuANCYzLsDygmWkPR39SHkAct+K82lwpbgA4dVbN/UbF7EIjPvQOe4JXSpGaxYiupiSRoK2zeDeT2202qYovqSytTFUjSIrvRx/HM46nhO0aRRx/OBd0TPcWMiEeshutE2Tc1KaY463owSHXRc+H9WHZABqsY3qPM9nyo9nzuq1KztlMGuiRalZlsxUls9A9VLyGoZslp/dJeHg1mJCFDVT9MOf4mvWCfQ+Ob8lFfyZN5VPX48Mup4W7nKd4XdSs9nwotoJdCJtq5xDbYQx07xD7/B6e1jqd8NAAAAAElFTkSuQmCC" alt=""><img src="data:image/png;base64,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" alt="">${O.logo ? `<img class="og" src="${O.logo.url}" alt="">` : '<span class="ph">לוגו הארגון</span>'}</div>
+  <div class="pvb">ברוך/ה הבא/ה לאתר הילה עם ${esc(O.welcome || O.name || '…')}</div></div>
+  <div class="pv"><h5>כרטיס המוצר בעמוד ההשתלמויות</h5><div class="tile"><div class="im" style="${first ? `background-image:url(${first.url})` : ''}">${first ? '' : 'התמונה הראשית'}</div>
+  <div class="bd"><b>${esc(p.hotelName || p.co.name || 'שם המלון')}</b><span>${p.city ? esc(p.city) + ' · ' : ''}${p.start ? dmy(p.start).slice(0, 5) + ' - ' + dmy(p.end || p.start) : 'תאריכים'}</span></div>
+  <div class="pr"><div><small>${esc((p.priceFmt || '').replace('{0}', '').replace(/\s+/g, ' ').trim())}</small><br><small>${esc(p.tileMsg)}</small></div><strong>${mp !== null ? money(mp) : "___ ₪"}</strong></div></div></div>`;
+}
+
+/* ---------- רינדור ראשי ---------- */
+const SCR = [scReq, scOrg, scStay, scComp, scTerms, scMedia, scReview];
+function render(keepScroll) {
+  V = validate();
+  const y = window.scrollY;
+  const total = V.filter(x => x.level === 'error').length;
+  const fieldsAll = 36 * S.products.length;
+  const pct = Math.max(4, Math.min(100, Math.round((1 - total / Math.max(total + 40, fieldsAll)) * 100)));
+  $('#nav').innerHTML = `<h4>השלבים</h4>` + STEPS.map((s, i) => {
+    const e = i < 6 ? (i < 2 ? errCount(i) : S.products.reduce((a, _, pi) => a + errCount(i, pi), 0)) : total;
+    const st = i === S.step ? 'on' : (i < 6 && e === 0 && S.attempted[i] ? 'done' : (i < 6 && e && S.attempted[i] ? 'bad' : ''));
+    return `<button class="${st}" data-act="step" data-i="${i}"><span class="n">${st === 'done' ? '✓' : i + 1}</span><span>${s[1]}<br><small style="color:var(--mute);font-weight:400">${s[2]}</small></span></button>`;
+  }).join('') + `<div class="meter">${total ? `חסרים ${total} פרטים` : 'הכל מלא ✓'}<div class="bar"><b style="width:${pct}%"></b></div></div>`;
+  const nxt = S.step < 6 ? `<div class="sticky-actions nodev"><div class="actions">${S.step > 0 ? '<button class="btn sec" data-act="back">חזרה</button>' : '<span></span>'}<button class="btn pri" data-act="next">${S.step === 5 ? 'לסקירה ושליחה' : 'המשך'}</button></div></div>` : '<div class="actions" style="margin-top:6px"><button class="btn sec" data-act="back">חזרה לעריכה</button></div>';
+  $('#main').innerHTML = SCR[S.step]() + nxt;
+  $('#aside').innerHTML = S.step === 6 ? '' : preview();
+  $('#aside').parentElement.classList.toggle('noaside', S.step === 6);
+  bindAfter(); markErrors(); updateInfo();
+  if (keepScroll) window.scrollTo(0, y);
+  save();
+}
+function markErrors() {
+  $$('.f[data-fp]').forEach(el => {
+    const path = el.dataset.fp; const pi = path.startsWith('p.') ? S.cur : null;
+    const hits = V.filter(x => x.step === S.step && x.path === path && (x.pi == null || x.pi === pi || pi == null));
+    const prefix = V.filter(x => x.step === S.step && x.path.startsWith(path + '.') && (x.pi == null || x.pi === pi));
+    const all = hits.concat(path === 'p.images' || path === 'p.comps' ? prefix : []);
+    const show = all.length && (S.attempted[S.step] || S.touched[path]);
+    el.classList.toggle('invalid', !!show);
+    const e = $('.err', el); if (e) e.textContent = show ? all[0].msg : '';
+  });
+}
+function updateInfo() {
+  const el = $('#infoPreview'); if (!el) return; const p = cp(); const il = infoLines(p);
+  el.innerHTML = '<b>כך זה יופיע בעמוד המוצר:</b><br>' + (il.top.length ? '<b>שימו לב:</b><br>' + il.top.map(x => '✔ ' + esc(x)).join('<br>') : '') + (il.more.length ? '<br><b>מידע נוסף:</b><br>' + il.more.map(x => '✔ ' + esc(x)).join('<br>') : '');
+}
+function softUpdate() { /* בלי רינדור מחדש: מעדכן סטטוס, תצוגה מקדימה ושגיאות */
+  V = validate(); const p = cp();
+  if (p.titleAuto) { p.title = autoTitle(p); const t = $('[data-path="p.title"]'); if (t) t.value = p.title; }
+  if (p.shortAuto) { p.shortDesc = autoShort(p); const t = $('[data-path="p.shortDesc"]'); if (t) t.value = p.shortDesc; }
+  if (p.type !== 'course' && !p.closesAt && p.start) { p.closesAt = p.start; const t = $('[data-path="p.closesAt"]'); if (t) t.value = p.closesAt; }
+  V = validate(); markErrors(); updateInfo();
+  if (S.step !== 6) $('#aside').innerHTML = preview();
+  const total = V.filter(x => x.level === 'error').length; const m = $('.nav .meter'); if (m) m.firstChild.textContent = total ? `חסרים ${total} פרטים` : 'הכל מלא ✓';
+  save();
+}
+
+/* ---------- אירועים ---------- */
+function bindAfter() {
+  $$('[data-file]').forEach(inp => inp.addEventListener('change', () => handleFiles(inp.dataset.file, inp.files)));
+  $$('[data-drop]').forEach(d => {
+    ['dragover', 'dragenter'].forEach(e => d.addEventListener(e, ev => { ev.preventDefault(); d.classList.add('over'); }));
+    ['dragleave', 'drop'].forEach(e => d.addEventListener(e, ev => { ev.preventDefault(); d.classList.remove('over'); }));
+    d.addEventListener('drop', ev => handleFiles(d.dataset.drop, ev.dataTransfer.files));
+  });
+}
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset.path) {
+    let v = t.type === 'checkbox' ? t.checked : t.value; if (typeof v === 'string' && t.tagName !== 'SELECT' && t.type !== 'radio') { const c = stripEmoji(v); if (c !== v) { v = c; t.value = c; } }
+    setp(t.dataset.path, v);
+    if (t.dataset.path === 'p.title') cp().titleAuto = false; if (t.dataset.path === 'p.shortDesc') cp().shortAuto = false;
+    if (t.dataset.path.startsWith('p.') || t.dataset.path.startsWith('org.')) { if (t.type === 'radio' || t.type === 'checkbox' || t.tagName === 'SELECT') S.touched[t.dataset.path] = true; }
+    if (t.dataset.rr) render(true); else softUpdate();
+  } else if (t.dataset.cc) { const c = cp().comps; c[t.dataset.cc] = { ...(c[t.dataset.cc] || {}), on: t.checked }; render(true); }
+  else if (t.dataset.cp) { const c = cp().comps; c[t.dataset.cp] = { ...(c[t.dataset.cp] || {}), price: t.value }; S.touched['p.comps'] = true; softUpdate(); }
+  else if (t.dataset.fac) { const f = cp().facilities; const i = f.indexOf(t.dataset.fac); if (t.checked && i < 0) f.push(t.dataset.fac); if (!t.checked && i >= 0) f.splice(i, 1); softUpdate(); }
+  else if (t.dataset.line) { cp().lines[t.dataset.line] = t.checked; softUpdate(); }
+  else if (t.dataset.extra != null) { cp().extraLines[+t.dataset.extra] = stripEmoji(t.value); softUpdate(); }
+});
+document.addEventListener('focusout', e => { const f = e.target.closest && e.target.closest('.f[data-fp]'); if (f) { S.touched[f.dataset.fp] = true; markErrors(); } });
+document.addEventListener('click', async e => {
+  const a = e.target.closest('[data-act]'); if (!a) return; const d = a.dataset; const act = d.act;
+  if (act === 'step') go(+d.i);
+  else if (act === 'next') { S.attempted[S.step] = true; const e = S.step >= 2 ? errCount(S.step, S.cur) : errCount(S.step); if (e === 0) go(S.step + 1); else { render(true); const f = $('.f.invalid'); if (f) f.scrollIntoView({ block: 'center', behavior: 'smooth' }); toast('חסרים פרטים בשלב הזה. סימנתי באדום.'); } }
+  else if (act === 'back') go(S.step - 1);
+  else if (act === 'pick') { S.cur = +d.i; render(true); }
+  else if (act === 'addp') { S.products.push(newProduct()); S.cur = S.products.length - 1; S.step = 2; render(); window.scrollTo(0, 0); }
+  else if (act === 'dupp') { const c = JSON.parse(JSON.stringify(cp())); c.id = Math.random().toString(36).slice(2, 8); c.images = cp().images.slice(); c.start = ''; c.end = ''; c.closesAt = ''; c.titleAuto = true; c.shortAuto = true; S.products.push(c); S.cur = S.products.length - 1; S.step = 2; render(); window.scrollTo(0, 0); toast('שוכפל. עדכני תאריכים ומלון.'); }
+  else if (act === 'delp') { if (a.dataset.sure) { S.products.splice(S.cur, 1); S.cur = Math.max(0, S.cur - 1); render(); } else { a.dataset.sure = '1'; a.textContent = 'לחצי שוב למחיקה'; setTimeout(() => { delete a.dataset.sure; a.textContent = 'מחיקה'; }, 3000); } }
+  else if (act === 'addline') { cp().extraLines.push(''); render(true); }
+  else if (act === 'addaddon') { cp().addons.push({ kind: '', name: '', price: '', max: '' }); render(true); }
+  else if (act === 'rmaddon') { cp().addons.splice(+d.j, 1); render(true); }
+  else if (act === 'rmimg') { cp().images.splice(+d.k, 1); render(true); }
+  else if (act === 'imgup') { const im = cp().images; const k = +d.k; if (k > 0) { [im[k - 1], im[k]] = [im[k], im[k - 1]]; render(true); } }
+  else if (act === 'rmorg') { if (d.key === 'slider') S.org.slider.splice(+d.k, 1); else S.org[d.key] = null; render(true); }
+  else if (act === 'dtab') { S.devtab = d.t; render(true); }
+  else if (act === 'goto') { S.step = +d.step; if (d.pi !== '') S.cur = +d.pi; S.attempted[S.step] = true; render(); const f = $(`.f[data-fp="${CSS.escape(d.path)}"]`) || $('.f.invalid'); if (f) f.scrollIntoView({ block: 'center' }); }
+  else if (act === 'dl') { const name = `hila-request-${S.org.slug || 'org'}-${new Date().toISOString().slice(0, 10)}.json`, data = JSON.stringify(buildExport(), null, 2); let done = false; try { const dls = window.claude && await window.claude.use('downloads'); if (dls) { await dls.save({ filename: name, data }); done = true; } } catch (er) { if (er && er.code === 'dismissed') return; } if (!done) { const b = new Blob([data], { type: 'application/json' }); const u = URL.createObjectURL(b); const l = document.createElement('a'); l.href = u; l.download = name; l.click(); setTimeout(() => URL.revokeObjectURL(u), 2000); } toast('הקובץ נשמר. שלחי אותו יחד עם התמונות.'); }
+  else if (act === 'copy') { try { await navigator.clipboard.writeText(textSummary()); toast('הסיכום הועתק'); } catch (er) { const ta = document.createElement('textarea'); ta.value = textSummary(); document.body.append(ta); ta.select(); document.execCommand('copy'); ta.remove(); toast('הסיכום הועתק'); } }
+  });
+function go(i) { if (i < 0 || i > 6) return; S.step = i; render(); window.scrollTo({ top: 0 }); }
+let tt; function toast(m) { let t = $('.toast'); if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.append(t); } t.textContent = m; clearTimeout(tt); tt = setTimeout(() => t.remove(), 3200); }
+
+/* ---------- קבצי תמונה ---------- */
+async function inspect(file, kind) {
+  const buf = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+  const isJpg = buf[0] === 0xFF && buf[1] === 0xD8 && buf[2] === 0xFF;
+  const isPng = buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4E;
+  const tag = String.fromCharCode(...buf.slice(4, 12));
+  const isAvif = tag.startsWith('ftypavif') || tag.startsWith('ftypavis'), isWebp = String.fromCharCode(...buf.slice(0, 4)) === 'RIFF' && String.fromCharCode(...buf.slice(8, 12)) === 'WEBP';
+  const full = await new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.onerror = () => r(''); fr.readAsDataURL(file); });
+  let url = '', dim = [0, 0];
+  await new Promise(r => { const im = new Image(); im.onload = () => { dim = [im.naturalWidth, im.naturalHeight]; const k = Math.min(1, 360 / im.naturalWidth); const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(im.naturalWidth * k)); c.height = Math.max(1, Math.round(im.naturalHeight * k)); c.getContext('2d').drawImage(im, 0, 0, c.width, c.height); url = kind === 'logo' ? c.toDataURL('image/png') : c.toDataURL('image/jpeg', 0.8); r(); }; im.onerror = () => r(); im.src = full; });
+  let err = '';
+  if (isAvif) err = 'זה קובץ AVIF בשם JPG. יש לשמור מחדש כ-JPEG אמיתי';
+  else if (isWebp) err = 'זה קובץ WebP. יש להמיר ל-JPEG';
+  else if (kind === 'logo') { if (!isPng) err = 'הלוגו חייב להיות PNG'; else if (dim[1] < 48) err = 'הלוגו קטן מדי (גובה 64 פיקסלים ומעלה)'; }
+  else if (!isJpg && !isPng) err = 'פורמט לא נתמך. יש להעלות JPEG';
+  else if (kind === 'gallery' && dim[0] < 1000) err = `רחבה רק ${dim[0]} פיקסלים, נדרש 1000 ומעלה`;
+  else if (kind === 'banner' && dim[0] < 1200) err = 'הבאנר צריך להיות ברוחב 1440 פיקסלים';
+  else if (kind === 'slider' && dim[0] < 1200) err = 'הסליידר צריך להיות ברוחב 1440 פיקסלים לפחות';
+  if (!dim[0]) err = 'לא ניתן לקרוא את הקובץ כתמונה';
+  return { name: file.name, url, w: dim[0], h: dim[1], size: file.size, err };
+}
+async function handleFiles(key, files) {
+  const list = [...files]; if (!list.length) return;
+  if (key === 'gallery') { for (const f of list) cp().images.push(await inspect(f, 'gallery')); }
+  else if (key === 'slider') { for (const f of list) S.org.slider.push(await inspect(f, 'slider')); }
+  else { S.org[key] = await inspect(list[0], key); }
+  S.touched[key === 'gallery' ? 'p.images' : 'org.' + key] = true; render(true);
+}
+
+/* ---------- אתחול ---------- */
+(function init() {
+  const had = load();
+  render();
+  if (had) toast('נטענה הטיפול הקודם שלך. התמונות והלוגו נבחרים מחדש.');
+})();
+</script></body></html>
